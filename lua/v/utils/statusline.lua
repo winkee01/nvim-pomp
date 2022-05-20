@@ -1,4 +1,4 @@
-local H = require('v.highlights')
+local H = require('v.utils.highlights')
 
 local fn = vim.fn
 local api = vim.api

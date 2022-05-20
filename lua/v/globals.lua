@@ -30,6 +30,7 @@ _G.v = {
   -- this table is place to store lua functions to be called in those mappings
   mappings = {},
 }
+
 ----------------------------------------------------------------------------------------------------
 -- Utils
 ----------------------------------------------------------------------------------------------------
@@ -166,6 +167,3 @@ end
 function v.conf(name)
     return require(fmt('v.packer.config.%s', name))
 end
-
-
-v.colorscheme = 'tokyonight'

@@ -58,6 +58,19 @@ local colors = {
 --   vim.cmd(fmt('colorscheme %s', colorscheme))
 -- end
 
+
+-----------------------------------------------------------------------------//
+-- Color Scheme {{{1
+-----------------------------------------------------------------------------//
+-- override default colorscheme
+local colorscheme =  v.colorscheme
+local colorscheme_plugin = colorscheme..'.nvim'
+
+if v.plugin_installed(colorscheme_plugin) then
+  vim.cmd(fmt('packadd! %s', colorscheme_plugin))
+  vim.cmd(fmt('colorscheme %s', colorscheme))
+end
+
 local M = {}
 
 M.colorscheme = v.colorscheme

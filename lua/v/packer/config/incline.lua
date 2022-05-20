@@ -2,7 +2,7 @@ return function()
   local function render(props)
     local fmt, icons = string.format, v.style.icons.misc
     local devicons = require('nvim-web-devicons')
-    local highlights = require('v.highlights')
+    local highlights = require('v.utils.highlights')
     local bufname = vim.api.nvim_buf_get_name(props.buf)
     if bufname == '' then
       return '[No name]'

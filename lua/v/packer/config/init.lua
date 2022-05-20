@@ -2,7 +2,7 @@ local req_submodule = require('v.utils.wrappers').get_require_submodule('v.packe
 
 local M = {
     -- general = req_submodule('basic'),
-    appearance = req_submodule('themes'),
+    themes = req_submodule('themes'),
     -- providers = req_submodule('providers'),
     -- builtin = req_submodule('builtin'),
     -- lsp = req_submodule('lsp'),

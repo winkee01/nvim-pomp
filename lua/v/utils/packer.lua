@@ -211,11 +211,16 @@ function M.init(packer)
     --     return
     -- end
     packer.init({
+        max_jobs = 50,
+        compile_path = M.compile_path,
         display = {
             open_fn = function()
                 return require('packer.util').float({ border = 'single' })
             end,
             prompt_border = 'single',
+        },
+        git = {
+            clone_timeout = 240,
         },
         profile = {
             enable = true,
@@ -275,7 +280,13 @@ function M.bootstrap_packer()
         -- FIXME: currently development versions of packer do not work
         -- local name = vim.env.DEVELOPING and 'local-packer.nvim' or 'packer.nvim'
         vim.cmd('packadd! packer.nvim')
-        pcall(require, 'packer')
+        local ok, packer = pcall(require, 'packer')
+        if ok then
+            M.init(packer)
+            M.setup_plugins(packer)
+        else
+            vim.api.nvim_notify('Failed to load packer', vim.log.levels.ERROR, { title = 'Packer' })
+        end
         -- pcall(require, 'packer_compiled')
     end
 end

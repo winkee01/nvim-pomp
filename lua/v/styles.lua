@@ -188,3 +188,6 @@ v.style = {
 v.style.current = {
   border = v.style.border.line,
 }
+
+v.colorscheme = 'tokyonight'
+

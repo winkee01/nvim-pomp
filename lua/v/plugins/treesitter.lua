@@ -3,7 +3,8 @@ return function()
   local rainbow_enabled = { 'dart' }
 
   require('nvim-treesitter.configs').setup({
-    ensure_installed = 'all',
+    -- ensure_installed = 'all',
+    ensure_installed = { "c", "cpp", "json", "html", "css", "vim", "lua", "javascript", "typescript", "tsx", "python", "go", "rust" },
     ignore_install = { 'phpdoc' }, -- list of parser which cause issues or crashes
     highlight = {
       enable = true,

@@ -6,14 +6,12 @@
 --- 3. https://got-ravings.blogspot.com/2008/08/vim-pr0n-making-statuslines-that-own.html
 --- 4. Right sided truncation - https://stackoverflow.com/a/20899652
 
-local utils = require('v.utils.statusline')
-local H = require('v.highlights')
+local S = require('v.utils.statusline')
+local H = require('v.utils.highlights')
 
 local api = vim.api
-local P = v.style.palette
 local icons = v.style.icons
-
-local M = {}
+local P = v.style.palette
 
 local function colors()
   --- NOTE: Unicode characters including vim devicons should NOT be highlighted
@@ -38,7 +36,7 @@ local function colors()
   local dim_color = H.alter_color(normal_bg, 40)
   local bg_color = H.alter_color(normal_bg, -16)
 
-  H.all({
+  H.set_hi_all({
     StMetadata = { background = bg_color, inherit = 'Comment' },
     StMetadataPrefix = {
       background = bg_color,
@@ -96,7 +94,7 @@ end
 --- @param available_space number
 local function display(statusline, available_space)
   local str = ''
-  local items = utils.prioritize(statusline, available_space)
+  local items = S.prioritize(statusline, available_space)
   for _, item in ipairs(items) do
     if type(item.component) == 'string' then
       str = str .. item.component
@@ -120,8 +118,8 @@ end
 local separator = { '%=' }
 local end_marker = { '%<' }
 
-local item = utils.item
-local item_if = utils.item_if
+local item = S.item
+local item_if = S.item_if
 
 ---A very over-engineered statusline, heavily inspired by doom-modeline
 ---@return string
@@ -149,8 +147,8 @@ function _G.__statusline()
   ----------------------------------------------------------------------------//
   -- Modifiers
   ----------------------------------------------------------------------------//
-  local plain = utils.is_plain(ctx)
-  local file_modified = utils.modified(ctx, icons.misc.circle)
+  local plain = S.is_plain(ctx)
+  local file_modified = S.modified(ctx, icons.misc.circle)
   local focused = vim.g.vim_in_focus or true
   ----------------------------------------------------------------------------//
   -- Setup
@@ -160,18 +158,18 @@ function _G.__statusline()
 
   add(
     { item_if(icons.misc.block, not plain, 'StIndicator', { before = '', after = '' }), 0 },
-    { utils.spacer(1), 0 }
+    { S.spacer(1), 0 }
   )
   ----------------------------------------------------------------------------//
   -- Filename
   ----------------------------------------------------------------------------//
-  local segments = utils.file(ctx, plain)
+  local segments = S.file(ctx, plain)
   local dir, parent, file = segments.dir, segments.parent, segments.file
-  local dir_item = utils.item(dir.item, dir.hl, dir.opts)
-  local parent_item = utils.item(parent.item, parent.hl, parent.opts)
-  local file_item = utils.item(file.item, file.hl, file.opts)
+  local dir_item = S.item(dir.item, dir.hl, dir.opts)
+  local parent_item = S.item(parent.item, parent.hl, parent.opts)
+  local file_item = S.item(file.item, file.hl, file.opts)
   local readonly_hl = H.adopt_winhighlight(curwin, 'StatusLine', 'StCustomError', 'StError')
-  local readonly_item = utils.item(utils.readonly(ctx), readonly_hl)
+  local readonly_item = S.item(S.readonly(ctx), readonly_hl)
   ----------------------------------------------------------------------------//
   -- Mode
   ----------------------------------------------------------------------------//
@@ -194,7 +192,7 @@ function _G.__statusline()
   local notifications = ghn_ok and ghn.statusline_notification_count() or ''
 
   -- LSP Diagnostics
-  local diagnostics = utils.diagnostic_info(ctx)
+  local diagnostics = S.diagnostic_info(ctx)
   local flutter = vim.g.flutter_tools_decorations or {}
   -----------------------------------------------------------------------------//
   -- Left section
@@ -202,14 +200,14 @@ function _G.__statusline()
   add(
     { item_if(file_modified, ctx.modified, 'StModified'), 1 },
     { readonly_item, 2 },
-    { item(utils.mode()), 0 },
-    { item_if(utils.search_count(), vim.v.hlsearch > 0, 'StCount'), 1 },
+    { item(S.mode()), 0 },
+    { item_if(S.search_count(), vim.v.hlsearch > 0, 'StCount'), 1 },
     { dir_item, 3 },
     { parent_item, 2 },
     { file_item, 0 },
     { item_if('Saving…', vim.g.is_saving, 'StComment', { before = ' ' }), 1 },
     -- LSP Status
-    { item(utils.current_function(), 'StMetadataPrefix', { before = '  ' }), 4 },
+    { item(S.current_function(), 'StMetadataPrefix', { before = '  ' }), 4 },
     -- Local plugin dev indicator
     {
       item_if(available_space > 100 and 'local dev' or '', vim.env.DEVELOPING ~= nil, 'StComment', {
@@ -235,8 +233,8 @@ function _G.__statusline()
     -----------------------------------------------------------------------------//
     { item(flutter.app_version, 'StMetadata'), 4 },
     { item(flutter.device and flutter.device.name or '', 'StMetadata'), 4 },
-    { item(utils.lsp_client(ctx), 'StMetadata'), 4 },
-    { item(utils.debugger(), 'StMetadata', { prefix = icons.misc.bug }), 4 },
+    { item(S.lsp_client(ctx), 'StMetadata'), 4 },
+    { item(S.debugger(), 'StMetadata', { prefix = icons.misc.bug }), 4 },
     {
       item_if(diagnostics.error.count, diagnostics.error, 'StError', {
         prefix = diagnostics.error.sign,
@@ -287,7 +285,7 @@ function _G.__statusline()
     },
     -- Current line number/total line number
     {
-      utils.line_info({
+      S.line_info({
         prefix = icons.misc.line,
         prefix_color = 'StMetadataPrefix',
         current_hl = 'StTitle',
@@ -317,54 +315,47 @@ function _G.__statusline()
   return display(statusline, available_space - 5)
 end
 
-local function setup_autocommands()
-  v.augroup('CustomStatusline', {
-    { event = { 'FocusGained' }, pattern = { '*' }, command = 'let g:vim_in_focus = v:true' },
-    { event = { 'FocusLost' }, pattern = { '*' }, command = 'let g:vim_in_focus = v:false' },
-    {
-      event = { 'VimEnter', 'ColorScheme' },
-      pattern = { '*' },
-      command = function()
-        colors()
-      end,
-    },
-    {
-      event = { 'BufReadPre' },
-      once = true,
-      pattern = { '*' },
-      command = function()
-        utils.git_updates()
-      end,
-    },
-    {
-      event = { 'BufWritePre' },
-      pattern = { '*' },
-      command = function()
-        if not vim.g.is_saving and vim.bo.modified then
-          vim.g.is_saving = true
-          vim.defer_fn(function()
-            vim.g.is_saving = false
-          end, 1000)
-        end
-      end,
-    },
-    {
-      event = 'User',
-      pattern = 'NeogitStatusRefresh',
-      command = function()
-        utils.git_updates_refresh()
-      end,
-    },
-  })
-end
-
--- attach autocommands
-setup_autocommands()
+v.augroup('CustomStatusline', {
+  { event = { 'FocusGained' }, pattern = { '*' }, command = 'let g:vim_in_focus = v:true' },
+  { event = { 'FocusLost' }, pattern = { '*' }, command = 'let g:vim_in_focus = v:false' },
+  {
+    event = { 'VimEnter', 'ColorScheme' },
+    pattern = { '*' },
+    command = function()
+      colors()
+    end,
+  },
+  {
+    event = { 'BufReadPre' },
+    once = true,
+    pattern = { '*' },
+    command = function()
+      S.git_updates()
+    end,
+  },
+  {
+    event = { 'BufWritePre' },
+    pattern = { '*' },
+    command = function()
+      if not vim.g.is_saving and vim.bo.modified then
+        vim.g.is_saving = true
+        vim.defer_fn(function()
+          vim.g.is_saving = false
+        end, 1000)
+      end
+    end,
+  },
+  {
+    event = 'User',
+    pattern = 'NeogitStatusRefresh',
+    command = function()
+      S.git_updates_refresh()
+    end,
+  },
+})
 
 -- :h qf.vim, disable qf statusline
 vim.g.qf_disable_statusline = 1
 
 -- set the statusline
 vim.o.statusline = '%!v:lua.__statusline()'
-
-return M
