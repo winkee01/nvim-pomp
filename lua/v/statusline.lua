@@ -33,7 +33,7 @@ local function colors()
   local number_fg = H.get_hl('Number', 'fg')
   local identifier_fg = H.get_hl('Identifier', 'fg')
   local inc_search_bg = H.get_hl('Search', 'bg')
-
+  -- local normal_bg = '#282c34'
   local normal_bg = H.get_hl('Normal', 'bg')
   local dim_color = H.alter_color(normal_bg, 40)
   local bg_color = H.alter_color(normal_bg, -16)

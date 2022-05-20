@@ -5,6 +5,18 @@ local P = v.style.palette
 local L = v.style.lsp.colors
 local levels = vim.log.levels
 
+
+local base3 = '#23272e'
+local base6 = '#73797e'
+local base8 = '#DFDFDF'
+local bg_popup = '#3E4556'
+local fg = '#bbc2cf'
+local bg = '#282c34'
+local statusline_hi = { fg = base8, bg = base3 }
+local statuslinenc_hi = { fg = base6, bg = bg_popup }
+local transparent_bg = false
+local normal_hi = { fg = fg, bg = bg }
+
 local M = {}
 
 ---Convert a hex color to RGB
@@ -61,6 +73,17 @@ local function get_hl(group_name)
     hl[true] = nil -- BUG: API returns a true key which errors during the merge
     return hl
   end
+
+  -- set default
+  -- if group_name == "Normal" then
+  --   hl.foreground = 6043243
+  --   hl.background = 1525315
+  -- elseif group_name == 'StatusLine' then
+  --   hi.forground = 327867
+  --   hi.background = 231253
+  -- end
+
+  -- return hl
   return {}
 end
 
@@ -86,7 +109,15 @@ function M.adopt_winhighlight(win_id, target, name, fallback)
   end
   local hl_group = vim.split(found, ':')[2]
   local bg = M.get_hl(hl_group, 'bg')
-  M.set_hl(win_hl_name, { background = bg, inherit = fallback })
+  if bg ~= 'NONE' then
+    M.set_hl(win_hl_name, { background = bg, inherit = fallback })
+  else
+    if hl_group == 'StatusLine' then
+      M.set_hl(win_hl_name, statusline_hi)
+    elseif hl_group == 'Normal' then
+      M.set_hl(win_hl_name, normal_hi)
+    end
+  end
   return win_hl_name
 end
 
@@ -133,13 +164,22 @@ function M.get_hl(group, attribute, fallback)
     return 'NONE'
   end
   local hl = get_hl(group)
+  
   attribute = ({ fg = 'foreground', bg = 'background' })[attribute] or attribute
   local color = hl[attribute] or fallback
   if not color then
-    vim.schedule(function()
-      vim.notify(fmt('%s %s does not exist', group, attribute), levels.INFO)
-    end)
-    return 'NONE'
+    -- vim.schedule(function()
+    --   vim.notify(fmt('%s does not have attribute %s', group, attribute), levels.INFO)
+    -- end)
+    -- return 'NONE'
+    local hlcolor
+    if group == 'Normal' then
+      hlcolor = normal_hi
+    elseif group == 'StatusLine' then
+      hlcolor = statusline_hi
+    end
+
+    return hlcolor
   end
   -- convert the decimal RGBA value from the hl by name to a 6 character hex + padding if needed
   return color
@@ -378,8 +418,13 @@ v.augroup('UserHighlights', {
 -----------------------------------------------------------------------------//
 -- Color Scheme {{{1
 -----------------------------------------------------------------------------//
-if v.plugin_installed('doom-one.nvim') then
-  vim.cmd('colorscheme doom-one')
+-- override default colorscheme
+local colorscheme =  v.colorscheme
+local colorscheme_plugin = colorscheme..'.nvim'
+
+if v.plugin_installed(colorscheme_plugin) then
+  vim.cmd(fmt('packadd! %s', colorscheme_plugin))
+  vim.cmd(fmt('colorscheme %s', colorscheme))
 end
 
 return M

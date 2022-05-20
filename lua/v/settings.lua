@@ -302,3 +302,6 @@ if v.executable('nvr') then
   vim.env.GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
   vim.env.EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 end
+
+-- add a default colorscheme to avoid errors in highlight.lua
+vim.cmd('colorscheme blue')

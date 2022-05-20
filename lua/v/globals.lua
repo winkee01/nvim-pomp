@@ -160,3 +160,12 @@ function v.has(feature)
 end
 
 
+---Require a plugin config
+---@param name string
+---@return any
+function v.conf(name)
+    return require(fmt('v.packer.config.%s', name))
+end
+
+
+v.colorscheme = 'tokyonight'
