@@ -167,3 +167,58 @@ end
 function v.conf(name)
     return require(fmt('v.packer.config.%s', name))
 end
+
+---create a mapping function factory
+---@param mode string
+---@param o table
+---@return fun(lhs: string, rhs: string|function, opts: table|nil) 'create a mapping'
+local function make_mapper(mode, o)
+  -- copy the opts table as extends will mutate the opts table passed in otherwise
+  local parent_opts = vim.deepcopy(o)
+  ---Create a mapping
+  ---@param lhs string
+  ---@param rhs string|function
+  ---@param opts table
+  return function(lhs, rhs, opts)
+    -- If the label is all that was passed in, set the opts automagically
+    opts = type(opts) == 'string' and { desc = opts } or opts and vim.deepcopy(opts) or {}
+    vim.keymap.set(mode, lhs, rhs, vim.tbl_extend('keep', opts, parent_opts))
+  end
+end
+
+local map_opts = { remap = true, silent = true }
+local noremap_opts = { silent = true }
+
+-- A recursive commandline mapping
+v.nmap = make_mapper('n', map_opts)
+-- A recursive select mapping
+v.xmap = make_mapper('x', map_opts)
+-- A recursive terminal mapping
+v.imap = make_mapper('i', map_opts)
+-- A recursive operator mapping
+v.vmap = make_mapper('v', map_opts)
+-- A recursive insert mapping
+v.omap = make_mapper('o', map_opts)
+-- A recursive visual & select mapping
+v.tmap = make_mapper('t', map_opts)
+-- A recursive visual mapping
+v.smap = make_mapper('s', map_opts)
+-- A recursive normal mapping
+v.cmap = make_mapper('c', { remap = true, silent = false })
+-- A non recursive normal mapping
+v.nnoremap = make_mapper('n', noremap_opts)
+-- A non recursive visual mapping
+v.xnoremap = make_mapper('x', noremap_opts)
+-- A non recursive visual & select mapping
+v.vnoremap = make_mapper('v', noremap_opts)
+-- A non recursive insert mapping
+v.inoremap = make_mapper('i', noremap_opts)
+-- A non recursive operator mapping
+v.onoremap = make_mapper('o', noremap_opts)
+-- A non recursive terminal mapping
+v.tnoremap = make_mapper('t', noremap_opts)
+-- A non recursive select mapping
+v.snoremap = make_mapper('s', noremap_opts)
+-- A non recursive commandline mapping
+v.cnoremap = make_mapper('c', { silent = false })
+

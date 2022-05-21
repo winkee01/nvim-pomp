@@ -196,19 +196,23 @@ vim.opt.listchars = {
 -----------------------------------------------------------------------------//
 -- Indent
 -----------------------------------------------------------------------------//
-vim.opt.wrap = true
-vim.opt.wrapmargin = 2
-vim.opt.textwidth = 80
-vim.opt.autoindent = true
-vim.opt.shiftround = true
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
+vim.opt.wrap        = true
+vim.opt.wrapmargin  = 2
+vim.opt.textwidth   = 80
+vim.opt.autoindent  = true
+vim.opt.shiftround  = true
+vim.opt.shiftwidth  = 4
+vim.opt.tabstop     = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab   = true
+vim.opt.hlsearch    = true
+vim.opt.incsearch   = true
 -----------------------------------------------------------------------------//
 -- vim.o.debug = "msg"
-vim.opt.gdefault = true
-vim.opt.pumheight = 15
-vim.opt.confirm = true -- make vim prompt me to save before doing destructive things
-vim.opt.hlsearch = true
+vim.opt.gdefault    = true
+vim.opt.pumheight   = 15
+vim.opt.confirm     = true -- make vim prompt me to save before doing destructive things
+vim.opt.hlsearch    = true
 vim.opt.autowriteall = true -- automatically :write before running commands and changing files
 -- vim.opt.clipboard = { 'unnamedplus' }
 -- vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
@@ -285,7 +289,7 @@ vim.opt.spellsuggest:prepend({ 12 })
 vim.opt.spelloptions = 'camel'
 vim.opt.spellcapcheck = '' -- don't check for capital letters at start of sentence
 vim.opt.fileformats = { 'unix', 'mac', 'dos' }
-vim.opt.spelllang:append('programming')
+-- vim.opt.spelllang:append('programming') -- install 'psliwka/vim-dirtytalk' plugin first
 -----------------------------------------------------------------------------//
 -- Mouse {{{1
 -----------------------------------------------------------------------------//

@@ -5,6 +5,7 @@ local M = {
     -- syntax     = req_submodule('syntax'),
     -- lsp        = req_submodule('lsp'),
     appearance = req_submodule('appearance'),
+    enhancement = req_submodule('enhancement'),
     -- git        = req_submodule('git'),
     -- navigation = req_submodule('navigation'),
 }

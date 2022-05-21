@@ -1,4 +1,4 @@
-local utils = require('v.utils.plugins')
+local utils = require('v.utils.packer')
 
 local conf = utils.conf
 local use_local = utils.use_local

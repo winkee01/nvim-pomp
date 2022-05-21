@@ -9,6 +9,7 @@ local M = {
     'olimorris/onedarkpro.nvim',
     'rmehri01/onenord.nvim', -- mix between OneDark and Nord
     'mrjones2014/lighthaus.nvim',
+    'rebelot/kanagawa.nvim'
 }
 
 return M
