@@ -43,6 +43,7 @@ set_keybindings({
     -- {'v', 'K', ":move '<-2<CR>gv-gv"},
     { "n", "<C-Up>", ":m-2<CR> " },
     { "n", "<C-Down>", ":m+1<CR>" },
+    
     -- ^^^^ (6) Scroll up/down
     {'n', '<C-u>', '9k'},
     {'n', '<C-d>', '9j'},

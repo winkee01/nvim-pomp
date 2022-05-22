@@ -8,6 +8,7 @@ vim.filetype.add({
   extension = {
     lock = 'yaml',
     log = 'log',
+    ms = 'groff',
   },
   filename = {
     ['.gitignore'] = 'conf',

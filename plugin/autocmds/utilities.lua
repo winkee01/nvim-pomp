@@ -70,7 +70,6 @@ v.augroup('Utilities', {
         vim.cmd([[
             unlet! b:ftdetect
             filetype detect
-            echom 'Filetype set to ' . &ft
           ]])
       end
     end,
