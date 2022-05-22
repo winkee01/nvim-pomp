@@ -44,7 +44,7 @@ v.augroup('Utilities', {
   },
   { -- TODO: should this be done in ftplugin files
     event = { 'FileType' },
-    pattern = { 'lua', 'vim', 'dart', 'python', 'javascript', 'typescript', 'rust' },
+    pattern = { 'markdown' },
     command = 'setlocal spell',
   },
   {

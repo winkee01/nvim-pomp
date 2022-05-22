@@ -20,11 +20,11 @@ vim.cmd('packadd! cfilter')
 -- bootstrap_packer() has executed packer.sync(), so it's ok to do require here
 v.safe_require('impatient')
 
-v.command('PackerCompiledEdit', function()
+v.run_command('PackerCompiledEdit', function()
   vim.cmd(fmt('edit %s', utils.compile_path))
 end)
 
-v.command('PackerCompiledDelete', function()
+v.run_command('PackerCompiledDelete', function()
   vim.fn.delete(utils.compile_path)
   packer_notify(fmt('Deleted %s', utils.compile_path))
 end)

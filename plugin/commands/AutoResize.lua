@@ -27,4 +27,5 @@ local auto_resize = function()
     end
   end
 end
-v.command('AutoResize', auto_resize(), { nargs = '?' })
+
+v.create_command('AutoResize', auto_resize(), { nargs = '?' })

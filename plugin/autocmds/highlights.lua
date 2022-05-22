@@ -176,7 +176,7 @@ end
 
 local function colorscheme_overrides()
   if vim.g.colors_name == 'doom-one' then
-    M.set_hi_all({
+    H.set_hi_all({
       CursorLineNr = { foreground = { from = 'Keyword' } },
       LineNr = { background = 'NONE' },
     })

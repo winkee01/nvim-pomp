@@ -38,7 +38,7 @@ v.augroup('SmartClose', {
         or vim.tbl_contains(smart_close_filetypes, vim.bo.filetype)
 
       if is_eligible then
-        v.nnoremap('q', smart_close, { buffer = 0, nowait = true })
+        v.set_keybindings({{'n', 'q', smart_close, { buffer = 0, nowait = true }}})
       end
     end,
   },
@@ -48,7 +48,7 @@ v.augroup('SmartClose', {
     targets = { '*' },
     command = function()
       if vim.fn.winnr '$' == 1 and vim.bo.buftype == 'quickfix' then
-        api.nvim_buf_delete(0, { force = true })
+        vim.api.nvim_buf_delete(0, { force = true })
       end
     end,
   },

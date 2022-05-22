@@ -66,6 +66,30 @@ function v.plugin_installed(plugin_name)
   return vim.tbl_contains(installed, plugin_name)
 end
 
+---NOTE: this plugin returns the currently loaded state of a plugin given
+---given certain assumptions i.e. it will only be true if the plugin has been
+---loaded e.g. lazy loading will return false
+---@param plugin_name string
+---@return boolean?
+function v.plugin_loaded(plugin_name)
+  local plugins = packer_plugins or {}
+  return plugins[plugin_name] and plugins[plugin_name].loaded
+end
+
+---Check whether or not the location or quickfix list is open
+---@return boolean
+function v.is_vim_list_open()
+  for _, win in ipairs(api.nvim_list_wins()) do
+    local buf = api.nvim_win_get_buf(win)
+    local location_list = fn.getloclist(0, { filewinid = 0 })
+    local is_loc_list = location_list.filewinid > 0
+    if vim.bo[buf].filetype == 'qf' or is_loc_list then
+      return true
+    end
+  end
+  return false
+end
+
 ---Determine if a value of any type is empty
 ---@param item any
 ---@return boolean
@@ -123,11 +147,11 @@ end
 ---@param name any
 ---@param rhs string|fun(args: CommandArgs)
 ---@param opts table?
--- function v.command(name, rhs, opts)
---   -- print(vim.inspect(type(rhs)))
---   opts = opts or {}
---   api.nvim_create_user_command(name, rhs, opts)
--- end
+function v.create_command(name, rhs, opts)
+  -- print(vim.inspect(type(rhs)))
+  opts = opts or {}
+  api.nvim_create_user_command(name, rhs, opts)
+end
 
 ---Wrapper for defining commands with `:command`
 ---@param lhs string the command's name
@@ -137,7 +161,7 @@ end
 ---
 ---opts.def_bang is an custom boolean option (default `true`) that specifies if
 ---the command should be defined with a bang (`:command!` instead of `:command`)
-function v.command(lhs, rhs, opts)
+function v.run_command(lhs, rhs, opts)
   if (type(lhs) ~= 'string' or (type(rhs) ~= 'string' and type(rhs) ~= 'function')) or (opts and type(opts) ~= 'table') then
     vim.api.nvim_notify('Invalid parameter(s).', vim.log.levels.ERROR, {
       title = 'Commands',
@@ -169,7 +193,7 @@ end
 ---@return nil
 function v.set_commands(args)
   for _, cmd_table in ipairs(args) do
-    v.command(unpack(cmd_table))
+    v.run_command(unpack(cmd_table))
   end
 end
 
@@ -213,57 +237,44 @@ function v.conf(name)
     return require(fmt('v.packer.config.%s', name))
 end
 
----create a mapping function factory
----@param mode string
----@param o table
----@return fun(lhs: string, rhs: string|function, opts: table|nil) 'create a mapping'
-local function make_mapper(mode, o)
-  -- copy the opts table as extends will mutate the opts table passed in otherwise
-  local parent_opts = vim.deepcopy(o)
-  ---Create a mapping
-  ---@param lhs string
-  ---@param rhs string|function
-  ---@param opts table
-  return function(lhs, rhs, opts)
-    -- If the label is all that was passed in, set the opts automagically
-    opts = type(opts) == 'string' and { desc = opts } or opts and vim.deepcopy(opts) or {}
-    vim.keymap.set(mode, lhs, rhs, vim.tbl_extend('keep', opts, parent_opts))
+
+local t = v.replace_termcodes
+
+-- TODO: setup whichkey registering on the fly
+-- https://github.com/folke/which-key.nvim#-setup
+-- https://github.com/akinsho/dotfiles/blob/c81dadf0c570ce39543a9b43a75f41256ecd03fc/.config/nvim/lua/as/plugins/lspconfig.lua#L61-L119
+-- https://github.com/folke/which-key.nvim/issues/153
+
+---Wrapper for `vim.keymap.set`
+---@param mode string|string[] mode or list of modes (`:h map-modes`)
+---@param lhs string keybinding
+---@param rhs string|function action
+---@param opts table<string, boolean|string> usual map options + `buffer` (`:h vim.keymap.set`)
+function v.map(mode, lhs, rhs, opts)
+  if not lhs then
+    vim.api.nvim_notify('No LHS.', vim.log.levels.ERROR, {
+      title = 'Mapping',
+    })
+    return
   end
+
+  local options = vim.tbl_extend('force', {
+    silent = true,
+    nowait = true, -- TODO: does this break anything?
+    replace_keycodes = false,
+  }, opts or {})
+
+  if options.buffer and type(options.buffer) ~= 'number' then
+    options.buffer = 0
+  end
+
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
-local map_opts = { remap = true, silent = true }
-local noremap_opts = { silent = true }
-
--- A recursive commandline mapping
-v.nmap = make_mapper('n', map_opts)
--- A recursive select mapping
-v.xmap = make_mapper('x', map_opts)
--- A recursive terminal mapping
-v.imap = make_mapper('i', map_opts)
--- A recursive operator mapping
-v.vmap = make_mapper('v', map_opts)
--- A recursive insert mapping
-v.omap = make_mapper('o', map_opts)
--- A recursive visual & select mapping
-v.tmap = make_mapper('t', map_opts)
--- A recursive visual mapping
-v.smap = make_mapper('s', map_opts)
--- A recursive normal mapping
-v.cmap = make_mapper('c', { remap = true, silent = false })
--- A non recursive normal mapping
-v.nnoremap = make_mapper('n', noremap_opts)
--- A non recursive visual mapping
-v.xnoremap = make_mapper('x', noremap_opts)
--- A non recursive visual & select mapping
-v.vnoremap = make_mapper('v', noremap_opts)
--- A non recursive insert mapping
-v.inoremap = make_mapper('i', noremap_opts)
--- A non recursive operator mapping
-v.onoremap = make_mapper('o', noremap_opts)
--- A non recursive terminal mapping
-v.tnoremap = make_mapper('t', noremap_opts)
--- A non recursive select mapping
-v.snoremap = make_mapper('s', noremap_opts)
--- A non recursive commandline mapping
-v.cnoremap = make_mapper('c', { silent = false })
-
+function v.set_keybindings(args, common_opts)
+  for _, map_table in ipairs(args) do
+    local mode, lhs, rhs, opts = unpack(map_table)
+    local options = vim.tbl_extend('force', common_opts or {}, opts or {})
+    v.map(mode, lhs, rhs, options)
+  end
+end

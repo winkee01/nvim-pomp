@@ -212,7 +212,6 @@ vim.opt.incsearch   = true
 vim.opt.gdefault    = true
 vim.opt.pumheight   = 15
 vim.opt.confirm     = true -- make vim prompt me to save before doing destructive things
-vim.opt.hlsearch    = true
 vim.opt.autowriteall = true -- automatically :write before running commands and changing files
 -- vim.opt.clipboard = { 'unnamedplus' }
 -- vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
@@ -279,8 +278,8 @@ vim.opt.swapfile = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.wrapscan = true -- Searches wrap around the end of the file
-vim.opt.scrolloff = 9
-vim.opt.sidescrolloff = 10
+vim.opt.scrolloff = 1
+vim.opt.sidescrolloff = 2
 vim.opt.sidescroll = 1
 -----------------------------------------------------------------------------//
 -- Spelling {{{1
