@@ -77,3 +77,63 @@ require('v.utils.mappings').set_keybindings({
   {'n', 'gf', [[ :lua v.open_path()<CR> ]] },
 })
 
+---Executes the current line in VimL or Lua
+---@return nil
+function exec_line_or_make()
+  local filetype = vim.opt_local.ft._value
+
+  if vim.tbl_contains({ 'c', 'cpp' }, filetype) then
+    vim.api.nvim_command('make')
+    return
+  elseif not vim.tbl_contains({ 'lua', 'vim' }, filetype) then
+    return
+  end
+
+  local mode = vim.api.nvim_get_mode().mode
+  local line = vim.fn.line('.')
+  local command
+
+  if mode == 'V' then
+    local start_visual = vim.fn.line('v')
+    command = vim.api.nvim_buf_get_lines(0, start_visual - 1, line, false)
+    line = math.min(line, start_visual) .. ':' .. math.max(line, start_visual)
+  elseif mode == 'n' then
+    command = { vim.api.nvim_get_current_line() }
+  else
+    return
+  end
+
+  if filetype == 'lua' then
+    command = 'lua << EOF\n' .. table.concat(command, '\n') .. '\nEOF'
+  end
+
+  local ok, _ = pcall(vim.api.nvim_exec, command, false)
+
+  local file = string.gsub(vim.api.nvim_buf_get_name(0), [[^.+/(%w+/%w+)]], '%1')
+  vim.notify(
+    ('Executed %s, %s.'):format(file, line),
+    ok and vim.log.levels.INFO or vim.log.levels.ERROR,
+    { title = 'Line Execution' }
+  )
+end
+
+require('v.utils.mappings').set_keybindings({
+  -- execute currenbt line/selection
+    {
+      { 'n', 'v' },
+      '<leader>x',
+      function()
+        exec_line_or_make()
+      end,
+    },
+
+    ---source/reload current file
+    {
+      { 'n' },
+      '<leader>xx',
+      function()
+        vim.cmd('R') -- This is a commmand from plugin/commands
+      end,
+    },
+})
+

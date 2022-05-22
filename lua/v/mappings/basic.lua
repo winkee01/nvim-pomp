@@ -43,7 +43,7 @@ set_keybindings({
     -- {'v', 'K', ":move '<-2<CR>gv-gv"},
     { "n", "<C-Up>", ":m-2<CR> " },
     { "n", "<C-Down>", ":m+1<CR>" },
-    
+
     -- ^^^^ (6) Scroll up/down
     {'n', '<C-u>', '9k'},
     {'n', '<C-d>', '9j'},
@@ -125,32 +125,16 @@ set_keybindings({
     -- show last 40 messages (by Justinmk)
     { 'n', 'g>', '<cmd>set nomore<bar>40messages<bar>set more<CR>' },
 
-    -- folds all others (functions), but open current
+    -- Fold focus: folds all others (functions), but open current
     { 'n', '<leader>z', 'zMzvzz' },
+    -- Recursively open all folds within the current function
+    { 'n', 'z0', 'zCzO' },
 
     -- gf in a vertical split
     { 'n', '<c-w>f', '<c-w>vgf' },
 
     -- rerun the last command
     { 'n', '<leader><leader>c', ':<up><cr>' },
-
-    -- execute currenbt line/selection
-    {
-    { 'n', 'v' },
-    '<leader>x',
-    function()
-      require('v.utils').exec_line_or_make()
-    end,
-    },
-
-    ---source/reload current file
-    {
-    { 'n' },
-    '<leader>xx',
-    function()
-      vim.cmd('R') -- This is a commmand from plugin/commands
-    end,
-    },
 
     -- FIXME: how to not get delay?
     -- insert escaped '/' while inputting a search pattern (by akisho)
