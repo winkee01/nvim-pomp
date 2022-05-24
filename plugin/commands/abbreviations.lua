@@ -21,6 +21,9 @@ require('v.utils.abbreviations').set_abbreviations({
     { 'wa!!', 'noautocmd wa' },
     { 'x!!', 'noautocmd x' },
 
+    -- User Commands
+    { 'AR', 'AutoResize'},
+
     -- closing buffers
     { 'bufo', 'BufOnly' },
     { 'qb', 'BufClose' },
@@ -30,7 +33,7 @@ require('v.utils.abbreviations').set_abbreviations({
     { 'PS', 'PackerSync' },
     { 'PC', 'PackerCompile' },
     { 'PL', 'PackerClean' },
-    { 'PT', 'PackerStatus' },
+    { 'PST', 'PackerStatus' },
 
     -- LSP
     { 'LA', 'LspStart' },

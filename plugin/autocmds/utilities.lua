@@ -38,14 +38,9 @@ v.augroup('Utilities', {
     end,
   },
   {
-    event = { 'FileType' },
+    event = { 'FileType' },  -- should be in ftplugin/ directory
     pattern = { 'gitcommit', 'gitrebase' },
     command = 'set bufhidden=delete',
-  },
-  { -- TODO: should this be done in ftplugin files
-    event = { 'FileType' },
-    pattern = { 'markdown' },
-    command = 'setlocal spell',
   },
   {
     event = { 'BufWritePre', 'FileWritePre' },
@@ -53,7 +48,7 @@ v.augroup('Utilities', {
     command = "silent! call mkdir(expand('<afile>:p:h'), 'p')",
   },
   {
-    event = { 'BufLeave' },
+    event = { 'BufLeave' }, -- Automatically save when leave the current buffer
     pattern = { '*' },
     command = function()
       if can_save() then
@@ -62,7 +57,7 @@ v.augroup('Utilities', {
     end,
   },
   {
-    event = { 'BufWritePost' },
+    event = { 'BufWritePost' }, -- When filetype is not recognized, run filetype detect
     pattern = { '*' },
     nested = true,
     command = function()

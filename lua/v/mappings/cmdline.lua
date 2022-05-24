@@ -22,14 +22,15 @@ require('v.utils.mappings').set_keybindings({
     { 'c', '<Esc>f', [[<S-Right>]] },
     
     -- Insert escaped '/' while inputting a search pattern
-    { 'c', '/', [[getcmdtype() == "/" ? "\/" : "/"]], { expr = true } },
+    -- { 'c', '/', [[getcmdtype() == "/" ? "\/" : "/"]], { expr = true } },
 
     -- smooth searching, allow tabbing between search results similar to using <c-g> or <c-t> 
     -- the main difference is: tab is easier to hit and remapping those keys to these would swallow up a tab mapping
-    -- Caution: have some glitches, need redraw
+    -- Caution: have some glitches, need to type <BS> to show
+    -- How to fix? no idea
     -- Note: overriden by nvim-cmp's tab completion
-    { 'c', '<Tab>', [[getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>/<C-r>/" : "<Tab>"]], {expr = true} },
-    { 'c', '<S-Tab>', [[getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"]], {expr = true} },
+    -- { 'c', '<Tab>', [[getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>/<C-r>/" : "<Tab>"]], {expr = true} },
+    -- { 'c', '<S-Tab>', [[getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"]], {expr = true} },
 
     -- sudo
     { 'c', 'w!!', [[w !sudo tee % >/dev/null]] },

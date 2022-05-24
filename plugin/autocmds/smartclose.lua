@@ -10,11 +10,16 @@ local smart_close_filetypes = {
   'log',
   'tsplayground',
   'qf',
+  'netrw',
 }
 
 local function smart_close()
   if vim.fn.winnr '$' ~= 1 then
     vim.api.nvim_win_close(0, true)
+  else
+    -- get back from netrw
+    -- https://superuser.com/questions/552828/return-from-netrw-vim-file-explorer-to-edited-buffer
+    vim.cmd('bdelete!')  
   end
 end
 

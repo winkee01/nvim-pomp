@@ -8,7 +8,8 @@ setlocal concealcursor=nc
 " if this a vim help file rather than one I'm creating
 " add mappings otherwise do not
 if expand('%') =~# '^'.$VIMRUNTIME || &readonly
-  autocmd BufWinEnter <buffer> wincmd L | vertical resize 80
+  autocmd BufWinEnter <buffer> wincmd L | vertical  " We don't need resize here, because we have set winsize in au AutoResize
+  " autocmd BufWinEnter <buffer> wincmd L | vertical resize 70
   nnoremap <buffer> q :<c-u>q<cr>
   nnoremap <buffer> <CR> <C-]>
   nnoremap <buffer> <BS> <C-T>

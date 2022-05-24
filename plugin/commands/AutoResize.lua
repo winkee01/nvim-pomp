@@ -29,3 +29,7 @@ local auto_resize = function()
 end
 
 v.create_command('AutoResize', auto_resize(), { nargs = '?' })
+
+if not AutoResize then
+  vim.cmd('AutoResize')
+end

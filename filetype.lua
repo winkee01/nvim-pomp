@@ -18,5 +18,6 @@ vim.filetype.add({
   pattern = {
     ['*.gradle'] = 'groovy',
     ['*.env.*'] = 'env',
+    ['.*aliases'] = 'sh',
   },
 })

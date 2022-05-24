@@ -15,9 +15,9 @@ require('v.utils.mappings').set_keybindings({
     {'v', '<C-v>', '"+p'},
     -- {'v', '<C-x>', '"+c'},  -- conflict with ctrl-v in normal mode
     -- {'n', '<C-v>', '"+gP'}, -- conflict with ctrl-v in visual mode
-    {'i', '<C-v>', '<C-r><C-o>"'},
-    {'i', '<C-s>', '<ESC>:w<CR>'},
-    {'n', '<C-s>', ':w<CR>'},
+    -- {'i', '<C-v>', '<C-r><C-o>"'},
+    {'i', '<C-s>', '<ESC>:up<CR>'},
+    {'n', '<C-s>', ':up<CR>'},
     {'n', '<C-a>', 'ggVG<CR>'},
     -- {'i', '<C-a>', '<ESC>ggVG<CR>i'},  -- conflict with default <c-a> in insert mode
     -- {'i', '<C-f>', '<ESC>/'},   -- conflict with Telescope

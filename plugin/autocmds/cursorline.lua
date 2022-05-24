@@ -1,7 +1,10 @@
--- only show cursorline when buffer type is not 'terminal' 
+-- only show cursorline when 
+-- buffer type is not 'terminal' 
 -- and not in previewwindow
 -- and window is set winhighlight
 -- and filetype is recognized
+
+-- TODO: only show cursorline when buffer is active
 
 local function should_show_cursorline()
   return vim.bo.buftype ~= 'terminal'
