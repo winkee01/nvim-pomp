@@ -118,7 +118,6 @@ function v.safe_require(module, opts)
   return ok, result
 end
 
-
 ---Create an autocommand
 ---returns the group ID so that it can be cleared or manipulated.
 ---@param name string
@@ -234,7 +233,25 @@ end
 ---@param name string
 ---@return any
 function v.conf(name)
-    return require(fmt('v.packer.config.%s', name))
+    return require(fmt('v.plugins-config.%s', name))
+end
+
+function v.conf_ex(category)
+  return function(name)
+    require(fmt('v.plugins-config.%s.%s', category, name))
+  end
+end
+
+function v.conf_ex_f(category)
+  return function(name)
+    return require(fmt('v.plugins-config.%s.%s', category, name))
+  end
+end
+
+function v.conf_path(category)
+  return function(name)
+    return fmt('v.plugins-config.%s.%s', category, name)
+  end
 end
 
 
@@ -276,5 +293,37 @@ function v.set_keybindings(args, common_opts)
     local mode, lhs, rhs, opts = unpack(map_table)
     local options = vim.tbl_extend('force', common_opts or {}, opts or {})
     v.map(mode, lhs, rhs, options)
+  end
+end
+
+---Sets VimL options for a plugin from a `opts` table.
+function v.set_viml_options(lead, opts, unique_value)
+  lead = lead or ''
+
+  local no_uppercase_initial = lead:match('^[^A-Z]')
+  local is_caps_lock = lead:match('^[A-Z]+$')
+  local has_no_separator = lead:match('[a-zA-Z0-9]$')
+
+  if (no_uppercase_initial or is_caps_lock) and has_no_separator then
+    lead = lead .. '_'
+  end
+
+  if unique_value then
+    if type(unique_value) == 'boolean' then
+      unique_value = unique_value and 1 or 0
+    end
+
+    for i, option in ipairs(opts) do
+      vim.g[lead .. option] = unique_value
+      opts[i] = nil
+    end
+  end
+
+  for option, value in pairs(opts) do
+    if type(value) == 'boolean' then
+      value = value and 1 or 0
+    end
+
+    vim.g[lead .. option] = value
   end
 end

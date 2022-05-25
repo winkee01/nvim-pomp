@@ -1,4 +1,6 @@
-local req_submodule = require('v.utils.wrappers').get_require_submodule('v.packer.config')
+-- If you want to manually enable a config category or a single config file, you require this file
+
+local req_submodule = require('v.utils.wrappers').get_require_submodule('v.plugins-config')
 
 local M = {
     -- general = req_submodule('basic'),

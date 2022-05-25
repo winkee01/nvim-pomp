@@ -10,7 +10,7 @@ end
 
 vim.g.mc = v.replace_termcodes([[y/\V<C-r>=escape(@", '/')<CR><CR>]])
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   {'n', 'Q', '@q'}, -- Q to replay q register
 
   -- Multiple Cursor Replacement

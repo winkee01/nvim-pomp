@@ -17,7 +17,7 @@ local auto_resize = function()
       vim.cmd(fmt('let &winheight=&lines * %d / 10 ', fraction))
       vim.cmd(fmt('let &winwidth=&columns * %d / 10 ', fraction))
       auto_resize_on = true
-      vim.notify('Auto resize ON')
+      -- vim.notify('Auto resize ON')
     else
       vim.cmd('let &winheight=30')
       vim.cmd('let &winwidth=30')

@@ -1,6 +1,6 @@
 -- ###### Quick Search & Replace ######
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
     -- ^^^^^^ (1) Search words under the cursor ^^^^^^
     -- ^^^^^^ (2) Replace whole word one by one, press . to repeat ^^^^^^
     -- ^^^^^^ (3) Replace the whole word under the cursor ^^^^^^

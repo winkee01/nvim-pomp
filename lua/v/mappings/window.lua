@@ -2,7 +2,7 @@
 -- Navigation in across Window/Buffer/Tabpage/Quickfix
 ----------------------------------------------------------------------------//
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
     -- alt + shift + hjkl to resize windows 
     -- Note: different in macOS and Windows
     -- { 'n', '<S-M-J>', '2<C-w>-' },

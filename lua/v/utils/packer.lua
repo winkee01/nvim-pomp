@@ -50,8 +50,8 @@ local function __get_plugin_name(arg)
 end
 
 -- Get config and setup str, e.g.
--- setup = require('xxx/xxx')
--- config = require('xxx/xxx')
+-- { setup = require('xxx/xxx') }
+-- { config = require('xxx/xxx') }
 local function __get_config_setup_str(module, plugin_name, is_theme)
     if type(module) ~= 'string' or type(plugin_name) ~= 'string' then
         return
@@ -67,12 +67,12 @@ local function __get_config_setup_str(module, plugin_name, is_theme)
 
     if is_theme and plugin_name then
         require_str = ([[%s
-            local settings = require('v.packer.config').themes
-            local colorscheme = settings.colorscheme
+            local themes = require('v.plugins-config').themes
+            local colorscheme = themes.colorscheme
 
             if colorscheme == '%s' then
                 vim.api.nvim_command('colorscheme %s')
-                settings.post_colorscheme_hook()
+                themes.post_colorscheme_hook()
             end
         ]]):format(require_str, plugin_name, plugin_name)
     end
@@ -85,16 +85,14 @@ local function __get_config_filepath(plugin_name, plugin_type, category)
         return
     end
 
-    local path = 'v.' .. plugin_type .. 's.'
+    local plugins_config_path = 'v.plugins-config'
 
-    if category then
-        path = path .. category .. '.'
-    end
+    path = string.format('%s.%s', plugins_config_path, category)
 
     return path .. plugin_name
 end
 
-local function __get_plugin_table(args, plugin_type, category)
+local function __get_plugin_table(args, category)
     if type(args) == 'string' then
         args = { args }
     end
@@ -113,7 +111,6 @@ local function __get_plugin_table(args, plugin_type, category)
     -- for the first item in M (which is args), the args is {'rcarriga/nvim-notify'}, 
     -- and args[1] is 'rcarriga/nvim-notify', it is a string
     local name = args.as or __get_plugin_name(args[1])
-    local is_theme = plugin_type == 'theme'
     local opts = args.__opts or {}
     args.__opts = nil -- we don't wanna pass this to packer
 
@@ -139,8 +136,13 @@ local function __get_plugin_table(args, plugin_type, category)
         end
     end
 
+    local is_theme = category == 'themes'
+    -- If config is nil, use default,
+    -- or, if use_setup not nil, but setup is nil
+    -- set default setup and config
     if not args.config or (args.use_setup and not args.setup) then
-        local config_path = __get_config_filepath(name, plugin_type, category)
+        -- local config_path = __get_config_filepath(name, plugin_type, category)
+        local config_path = v.conf_path(category)(name)
         local require_str = __get_config_setup_str(config_path, name, is_theme)
 
         if opts.setup then
@@ -151,17 +153,16 @@ local function __get_plugin_table(args, plugin_type, category)
     end
 
     if is_theme and not args.cond then
-        args.cond = "require('v.packer.config').themes.colorscheme == '" .. name .. "'"
+        args.cond = "require('v.plugins-config').themes.colorscheme == '" .. name .. "'"
     end
 
     return args
 end
 
--- Load plugins either in plugins or theme
-local function __load_plugins(table, packer)
-    for category, plugins in pairs(table.plugins) do
-        for _, args in ipairs(plugins) do
-            local plugin = __get_plugin_table(args, 'plugin', category)
+local function __load_plugins(plugins, packer)
+    for category, plugs in pairs(plugins) do
+        for _, args in ipairs(plugs) do
+            local plugin = __get_plugin_table(args, category)
             if args and args.use == "use_rocks" then
                 packer.use_rocks(plugin)
             else 
@@ -170,12 +171,12 @@ local function __load_plugins(table, packer)
         end
     end
 
-    for _, args in ipairs(table.themes) do
-        local theme = __get_plugin_table(args, 'theme')
-        if args then
-            packer.use(theme)
-        end
-    end
+    -- for _, args in ipairs(themes) do
+    --     local theme = __get_plugin_table(args, 'theme')
+    --     if args then
+    --         packer.use(theme)
+    --     end
+    -- end
 end
 
 --  ____  _   _ ____  _     ___ ____
@@ -231,12 +232,13 @@ function M.init(packer)
 end
 
 function M.setup_plugins(packer)
-    local table = {
-        plugins = require('v.packer.plugins'),
-        themes = require('v.packer.themes'),
-    }
-
-    __load_plugins(table, packer)
+    local ok, ps = pcall(require, 'v.packer.plugins')
+    if not ok then
+        -- error(ps)
+        vim.notify("failed to require'v.packer.plugins'\n" .. ps)
+        return
+    end
+    __load_plugins(ps, packer)
 end
 
 function M.setup(packer)
@@ -289,13 +291,6 @@ function M.bootstrap_packer()
         end
         -- pcall(require, 'packer_compiled')
     end
-end
-
----Require a plugin config
----@param name string
----@return any
-function M.conf(name)
-    return require(fmt('v.packer.config.%s', name))
 end
 
 return M

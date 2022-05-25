@@ -4,7 +4,7 @@ v.augroup('AddTerminalMappings', {
     pattern = { 'term://*' },
     command = function()
       if vim.bo.filetype == '' or vim.bo.filetype == 'toggleterm' then
-        require('v.utils.mappings').set_keybindings ({
+        v.set_keybindings ({
           { 't', '<esc>', [[<C-\><C-n>]] },
           { 't', 'jk', [[<C-\><C-n>]] },
           { 't', '<C-h>', [[<C-\><C-n><C-W>h]] },

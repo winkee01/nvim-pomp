@@ -17,7 +17,7 @@ vim.opt.shortmess = {
 -----------------------------------------------------------------------------//
 -- Timings {{{1
 -----------------------------------------------------------------------------//
-vim.opt.updatetime = 300
+-- vim.opt.updatetime = 300 -- default: 4000
 vim.opt.timeout = true
 vim.opt.timeoutlen = 500
 vim.opt.ttimeoutlen = 10
@@ -219,7 +219,7 @@ vim.opt.confirm     = true -- make vim prompt me to save before doing destructiv
 vim.opt.autowriteall = true -- automatically :write before running commands and changing files
 -- vim.opt.clipboard = { 'unnamedplus' }
 -- vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
-vim.opt.laststatus = 3
+vim.opt.laststatus = 3 -- global statusline
 
 -- GUI color/font/cursor/emoji
 vim.opt.termguicolors = true

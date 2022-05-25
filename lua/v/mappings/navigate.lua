@@ -2,7 +2,7 @@
 -- Navigation in window
 ----------------------------------------------------------------------------//
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
     -- Store relative line number jumps in the jumplist.
     {'n', 'j', [[(v:count > 1 ? 'm`' . v:count : '') . 'gj']], { expr = true, silent = true }},
     {'n', 'k', [[(v:count > 1 ? 'm`' . v:count : '') . 'gk']], { expr = true, silent = true }},

@@ -6,7 +6,7 @@
 -- <C-A> allows you to insert all matches on the command line e.g. bd *.js <c-a>
 -- will insert all matching files e.g. :bd a.js b.js c.js
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
     { 'c', '<c-x><c-a>', '<c-a>' },
     { 'c', '<C-a>', '<Home>' },
     { 'c', '<C-e>', '<End>' },

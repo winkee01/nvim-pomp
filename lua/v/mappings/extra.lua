@@ -28,7 +28,7 @@ local function modify_line_end_delimiter(character)
   end
 end
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
 
     -- modify line end delimiter
     {'n', '<localleader>,', modify_line_end_delimiter(',')},

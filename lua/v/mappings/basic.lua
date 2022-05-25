@@ -1,9 +1,7 @@
-local set_keybindings = require('v.utils.mappings').set_keybindings
-
 vim.g.mapleader = ','  -- default: \
 vim.g.maplocalleader = ','
 
-set_keybindings({
+v.set_keybindings({
     {'n', '<Leader>q', ':q<CR>'},
     {'n', '<Leader>w', ':w<CR>'},
     {'n', '<Leader>z', ':wq<CR>'},

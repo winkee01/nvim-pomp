@@ -14,7 +14,7 @@ function v.mappings.google(pattern, lucky)
   )
 end
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   { 'n', '<localleader>?', [[:lua v.mappings.google(vim.fn.expand("<cWORD>"), false)<cr>]] },
   { 'n', '<localleader>!', [[:lua v.mappings.google(vim.fn.expand("<cWORD>"), true)<cr>]] },
   { 'x', '<localleader>?', [["gy:lua v.mappings.google(vim.api.nvim_eval("@g"), false)<cr>gv]] },
@@ -39,7 +39,7 @@ function v.open_link()
   end
 end
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   {'n', 'gx', [[ :lua v.open_link()<CR> ]] },
 })
 
@@ -73,7 +73,7 @@ end
 -- if not a filepath, it will pop an error, 
 -- if you want to open it anyway, you can do: nnoremap('gf', '<Cmd>e <cfile><CR>')
 -- Here, we extend gf to open a filapath or a github page for the repo
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   {'n', 'gf', [[ :lua v.open_path()<CR> ]] },
 })
 
@@ -117,7 +117,7 @@ function exec_line_or_make()
   )
 end
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   -- execute currenbt line/selection
     {
       { 'n', 'v' },

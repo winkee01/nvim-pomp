@@ -14,7 +14,7 @@ local function clear_commandline()
       if vim.fn.mode() == 'n' then
         vim.cmd([[echon '']])
       end
-    end, 3000)
+    end, 10000) -- 10 seconds
   end
 end
 

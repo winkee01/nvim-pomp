@@ -1,4 +1,4 @@
-require('v.utils.mappings').set_keybindings {
+v.set_keybindings {
     -- ###### 2. Switch Between Windows######
     { "n", "˙", "<C-w>h" }, -- Alt h to left window
     { "n", "¬", "<C-w>l" }, -- Alt l to right window

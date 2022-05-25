@@ -16,7 +16,7 @@ function v.mappings.grep_operator(type)
   end
 end
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   -- http://travisjeffery.com/b/2011/10/m-x-occur-for-vim/
   { 'n', '<leader>g', [[:silent! set operatorfunc=v:lua.v.mappings.grep_operator<cr>g@]] },
   { 'x', '<leader>g', [[:call v:lua.v.mappings.grep_operator(visualmode())<cr>]] },

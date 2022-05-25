@@ -1,6 +1,6 @@
 local utils = require('v.utils.packer')
 
-local conf = utils.conf
+local conf = v.conf
 local use_local = utils.use_local
 local packer_notify = utils.packer_notify
 

@@ -1,13 +1,14 @@
 local req_submodule = require('v.utils.wrappers').get_require_submodule('v.packer.plugins')
 
 local M = {
-    general    = req_submodule('basic'),
-    -- syntax     = req_submodule('syntax'),
-    -- lsp        = req_submodule('lsp'),
-    appearance = req_submodule('appearance'),
+    basic       = req_submodule('basic'),
+    themes      = req_submodule('themes'),
+    appearance  = req_submodule('appearance'),
     enhancement = req_submodule('enhancement'),
-    -- git        = req_submodule('git'),
-    -- navigation = req_submodule('navigation'),
+    project     = req_submodule('project'),
+    git         = req_submodule('git'),
+    lang        = req_submodule('lang'),
+    -- lsp         = req_submodule('lsp'),
 }
 
 return M

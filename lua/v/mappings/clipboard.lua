@@ -10,7 +10,7 @@
 -- Ctrl+Z undo
 -- Ctrl+Y redo
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
     {'v', '<C-c>', '"+y'},
     {'v', '<C-v>', '"+p'},
     -- {'v', '<C-x>', '"+c'},  -- conflict with ctrl-v in normal mode

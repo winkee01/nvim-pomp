@@ -34,13 +34,14 @@ if not vim.g.packer_compiled_loaded and vim.loop.fs_stat(utils.compile_path) the
   vim.g.packer_compiled_loaded = true
 end
 
+-- Auto compile packer when plugins-config/*.lua was modified
 v.augroup('PackerSetupInit', {
   {
     event = 'BufWritePost',
-    pattern = { '*/v/packer/config/*.lua' },
+    pattern = { '*/v/plugins-config/*/*.lua' },
     description = 'Packer setup and reload',
     command = function()
-      v.invalidate('v.packer.config', true)
+      v.invalidate('v.plugins-config', true)
       packer.compile()
     end,
   },

@@ -25,7 +25,7 @@ function v.toggle_list(list_type)
   end
 end
 
-require('v.utils.mappings').set_keybindings({
+v.set_keybindings({
   {'n', '<leader>lq', function() v.toggle_list('quickfix') end },
   {'n', '<leader>ll', function() v.toggle_list('location') end },
 })

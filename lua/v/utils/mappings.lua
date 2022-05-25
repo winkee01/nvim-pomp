@@ -51,24 +51,6 @@ function M.unmap(mode, lhs, buffer)
   end
 end
 
----@class KeybindingTable
----@field mode string|string[] mode or list of modes (`:h map-modes`)
----@field lhs string keybinding
----@field rhs string|function action
----@param opts table<string, boolean|string> usual map options + `buffer` (`:h vim.keymap.set`)
-
----Sets a list of keybindings.
----@param args KeybindingTable[] parameters to be passed to v.utils.mappings.map
----@param common_opts table<string, boolean|string> options to be appled to all keybindings. The keybinding's individual options have higher prority.
----@see v.utils.mappings.map
-function M.set_keybindings(args, common_opts)
-  for _, map_table in ipairs(args) do
-    local mode, lhs, rhs, opts = unpack(map_table)
-    local options = vim.tbl_extend('force', common_opts or {}, opts or {})
-    M.map(mode, lhs, rhs, options)
-  end
-end
-
 ---@class UnkeybindingTable
 ---@field mode string|string[] mode or list of modes (`:h map-modes`)
 ---@field lhs string keybinding
