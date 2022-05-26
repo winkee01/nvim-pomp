@@ -1,4 +1,4 @@
-require('v.utils').set_viml_options('EasyClip', {
+v.set_viml_options('EasyClip', {
     UseSubstituteDefaults = false,
     UseCutDefaults = false,
     AutoFormat = true,

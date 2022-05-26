@@ -1,26 +1,45 @@
 -- Language enhancement
+local conf = v.conf_ex('lsp')
 
 local M = {
     {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate',
-      -- config = conf('treesitter'),
-      local_path = 'contributing',
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        -- config = conf('treesitter'),
+        local_path = 'contributing',
     },
+    -- { 
+    --     'David-Kunz/treesitter-unit', -- deal with treesitter units
+    --     requires = 'nvim-treesitter/nvim-treesitter',
+    --     after = 'nvim-treesitter',
+    -- },
+    -- { 'nvim-neorg/tree-sitter-norg' },
 
     -- lua, JSON, ...
-    { 'folke/lua-dev.nvim' },
+    { 'folke/lua-dev.nvim', requires = 'nvim-lua/plenary.nvim' }, -- see v/plugins-config/lsp/servers/sumneko_lua.lua
     { 'b0o/schemastore.nvim' }, -- JSON
 
     -- web development
     {'vuki656/package-info.nvim', requires = 'MunifTanjim/nui.nvim'}, -- display npm package info
-    { 'mattn/emmet-vim' },
+    -- TODO: emmet_ls
+    -- TODO: https://pbs.twimg.com/media/FC6NKbQWEAA6ZLc?format=jpg&name=4096x4096
+    {
+        'mattn/emmet-vim',
+        ft = {
+            'html',
+            'vue',
+            'javascript.jsx',
+            'typescript.tsx',
+        },
+    },
     { 
       'jose-elias-alvarez/nvim-lsp-ts-utils', 
       requires = 'nvim-lua/plenary.nvim',
     },
     { 'norcalli/nvim-colorizer.lua' },
 
+    -- go
+    -- { 'ray-x/go.nvim', ft = 'go', config = conf('go') },
     -- rust
     { "simrat39/rust-tools.nvim" },
 
@@ -142,7 +161,21 @@ local M = {
     --         'cpp',
     --     },
     -- },
-
+    {
+        'danymat/neogen', -- Create annotations
+        keys = { '<localleader>nc' },
+        requires = {
+            'nvim-treesitter/nvim-treesitter',
+            -- 'saadparwaiz1/cmp_luasnip',
+        },
+        module = 'neogen',
+        setup = function()
+            v.map('n', '<localleader>nc', [[ :call v:lua.require('neogen').generate ]])
+        end,
+        config = function()
+            require('neogen').setup({ snippet_engine = 'luasnip' })
+        end,
+    }
 }
 
 return M

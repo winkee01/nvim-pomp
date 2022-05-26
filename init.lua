@@ -37,3 +37,8 @@ R('v.settings')
 -- R('v.plugins')
 R('v.packer')
 R('v.mappings')
+
+-- require('v.globals')
+-- require('v.styles')
+-- require('v.settings')
+-- require('v.packer')

@@ -6,14 +6,29 @@ local M = {
     {
         'SmiteshP/nvim-gps',    -- show cursor context in statusline
         requires = 'nvim-treesitter/nvim-treesitter',
+        after = 'nvim-treesitter',
         config = conf('gps'),
+        -- config = function()
+        --     require('nvim-gps').setup({
+        --     icons = {
+        --         ['class-name']     = 'ﴯ ',
+        --         ['function-name']  = ' ',
+        --         ['method-name']    = ' ',
+        --         ['container-name'] = '⛶ ',
+        --     },
+        --     languages = {
+        --         html = false,
+        --     },
+        --     separator = ' > ',
+        -- })
+        -- end,
     },
     
     { 'b0o/incline.nvim', config = conf('incline')},
     {
         'lukas-reineke/indent-blankline.nvim',
         after = 'nvim-treesitter',
-        -- config = conf('indent-blankline'),
+        config = conf('indent-blankline'),
     },
     {
         'lukas-reineke/virt-column.nvim',  -- use a char to display colorcolumn
@@ -22,7 +37,7 @@ local M = {
             'CursorHold',
             'CursorMoved',
         },
-        config = v.conf_ex_f('appearance')('virt-column')
+        config = conf('virt-column')
     },
     { 'rcarriga/nvim-notify' }, -- beautiful notifications
     { 'kwkarlwang/bufresize.nvim' }, -- preserve window sizes on terminal resize
@@ -44,12 +59,16 @@ local M = {
     },
 
     -- Status Line
+    -- {
+    --     'nvim-lualine/lualine.nvim',
+    --     after = { 'devicons' },
+    --     -- local_path = 'personal',
+    -- },
     {
-        'nvim-lualine/lualine.nvim',
-        after = { 'devicons' },
-        -- local_path = 'personal',
-    },
-
+      'winkee01/galaxyline.nvim',
+      -- requires = 'SmiteshP/nvim-gps',
+      config = conf('galaxyline'),
+    }
 }
 
 return M

@@ -51,7 +51,7 @@ packer.startup({
     -- hopefully one day when this issue is fixed this can be removed
     -- @see: https://github.com/neovim/neovim/issues/12587
     use('antoinemadec/FixCursorHold.nvim')
-    use('kyazdani42/nvim-web-devicons')
+    use({ 'kyazdani42/nvim-web-devicons', as = 'devicons' })
     use('lewis6991/impatient.nvim')
     use({
       'SmiteshP/nvim-gps',
@@ -104,10 +104,10 @@ end
 v.augroup('PackerSetupInit', {
   {
     event = 'BufWritePost',
-    pattern = { '*/v/plugins/*.lua' },
+    pattern = { '*/v/plugins-config/*/*.lua' },
     description = 'Packer setup and reload',
     command = function()
-      v.invalidate('v.plugins', true)
+      v.invalidate('v.plugins-config', true)
       packer.compile()
     end,
   },

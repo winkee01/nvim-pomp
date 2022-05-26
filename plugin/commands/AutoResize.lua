@@ -14,8 +14,10 @@ local auto_resize = function()
       -- NOTE: mutating &winheight/&winwidth are key to how
       -- this functionality works, the API fn equivalents do
       -- not work the same way
+      -- TODO: if vim.bo.buftype == 'nvim-tree'
       vim.cmd(fmt('let &winheight=&lines * %d / 10 ', fraction))
       vim.cmd(fmt('let &winwidth=&columns * %d / 10 ', fraction))
+
       auto_resize_on = true
       -- vim.notify('Auto resize ON')
     else
@@ -30,6 +32,6 @@ end
 
 v.create_command('AutoResize', auto_resize(), { nargs = '?' })
 
-if not AutoResize then
-  vim.cmd('AutoResize')
-end
+-- if not AutoResize then
+--   vim.cmd('AutoResize')
+-- end

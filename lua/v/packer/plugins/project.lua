@@ -1,5 +1,27 @@
+local conf = v.conf_ex('project')
+
 -- Project & Session management
 local M = {
+    -- ## 1 ## Tree
+    {
+        'kyazdani42/nvim-tree.lua',
+        -- as = 'nvim-tree',
+        after = 'devicons',
+        -- cmd = {
+        --   'NvimTreeToggle',
+        --   'NvimTreeFindFile',
+        --   'NvimTreeClose',
+        -- },
+        -- keys = '<Leader>e',
+    },
+    -- ranger file explorer
+    {
+        'kevinhwang91/rnvimr',
+        as = 'ranger',
+        cmd = 'RnvimrToggle',
+        keys = '<Leader>r',
+    },
+
     -- 1. Dashboard
     {
       'glepnir/dashboard-nvim',
@@ -62,6 +84,12 @@ local M = {
     },
 
     -- 3. Buffer
+    {
+      'akinsho/bufferline.nvim',
+      requires = 'nvim-web-devicons',
+      config = conf('bufferline'),
+      -- local_path = 'personal',
+    },
     { 'kazhala/close-buffers.nvim' },
 
     -- 4. Fuzzy
@@ -91,11 +119,22 @@ local M = {
             require('telescope').load_extension('smart_history')
           end,
         },
+        -- { 
+        --     'crispgm/telescope-heading.nvim', -- markdown header picker
+        --     after = 'telescope.nvim',
+        -- }, 
       },
       -- config = conf('telescope'),
     },
 
-    -- 5. Load config
+    -- 5. Terminal
+    {
+      'akinsho/toggleterm.nvim',
+      -- local_path = 'personal',
+      config = conf('toggleterm'),
+    },
+
+    -- 6. Plugin developement & Config reloading
     {
       'klen/nvim-config-local',
       config = function()
@@ -104,6 +143,7 @@ local M = {
         })
       end,
     },
+    { 'tami5/sqlite.lua' }, -- sudo apt install libsqlite3-dev
 }
 
 return M

@@ -43,6 +43,21 @@ local theme_colors = {
   yellow = '#cbcb41',
 }
 
+vim.g.floating_window_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+vim.g.floating_window_border_dark = {
+    { "╭", "FloatBorderDark" },
+    { "─", "FloatBorderDark" },
+    { "╮", "FloatBorderDark" },
+    { "│", "FloatBorderDark" },
+    { "╯", "FloatBorderDark" },
+    { "─", "FloatBorderDark" },
+    { "╰", "FloatBorderDark" },
+    { "│", "FloatBorderDark" },
+}
+
+vim.g.floating_window_maxwidth = math.min(math.floor(vim.o.columns * 0.7), 100)
+vim.g.floating_window_maxheight = math.min(math.floor(vim.o.lines * 0.3), 30)
+
 v.style = {
   border = {
     line = { '🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏' },
@@ -213,5 +228,6 @@ v.style.current = {
   border = v.style.border.line,
 }
 
-v.colorscheme = 'kanagawa'
-
+-- Set a default colorscheme to avoid errors in highlight.lua
+-- This will be changed once a theme plugin is loaded, check v/plugins-config/theme.lua
+vim.cmd('colorscheme blue') 

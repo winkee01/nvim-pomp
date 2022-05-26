@@ -1,4 +1,4 @@
-require('v.utils').set_viml_options('prettier#', {
+v.set_viml_options('prettier#', {
     autformat_require_pragma     = false,
     autoformat_config_present    = true,
     exec_cmd_async               = true,

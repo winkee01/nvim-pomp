@@ -1,3 +1,4 @@
+-- Also see toggle term
 v.augroup('AddTerminalMappings', {
   {
     event = { 'TermOpen' },
@@ -7,7 +8,7 @@ v.augroup('AddTerminalMappings', {
         v.set_keybindings ({
           { 't', '<esc>', [[<C-\><C-n>]] },
           { 't', 'jk', [[<C-\><C-n>]] },
-          { 't', '<C-h>', [[<C-\><C-n><C-W>h]] },
+          -- { 't', '<C-h>', [[<C-\><C-n><C-W>h]] },
           { 't', '<C-j>', [[<C-\><C-n><C-W>j]] },
           { 't', '<C-k>', [[<C-\><C-n><C-W>k]] },
           { 't', '<C-l>', [[<C-\><C-n><C-W>l]] },

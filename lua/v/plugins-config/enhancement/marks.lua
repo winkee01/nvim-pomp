@@ -1,4 +1,4 @@
-require('as.highlights').plugin('marks', { MarkSignHL = { foreground = 'Red' } })
+require('v.utils.highlights').plugin('marks', { MarkSignHL = { foreground = 'Red' } })
 
 if v.plugin_loaded("which-key") then
   require('which-key').register({

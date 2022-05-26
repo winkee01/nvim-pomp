@@ -1,4 +1,4 @@
-require('v.utils').set_viml_options('UltiSnips', {
+v.set_viml_options('UltiSnips', {
     EditSplit = 'tab',
     ExpandTrigger = '<tab>',
     JumpBackwardTrigger = '<s-tab>',

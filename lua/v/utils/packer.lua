@@ -21,6 +21,19 @@ local function __get_local_plugin_path(arg)
 end
 
 -- Get plugin name from an item in packer use()
+-- Remove:
+-- 1) leading path 
+-- 2) extension 
+-- 3) prefix/sufix of vim or nvim 
+-- 4) prefix/sufix of lua
+-- examples:
+-- kazhala/close-buffers.nvim   --> close-buffers
+-- Th3Whit3Wolf/space-nvim      --> space
+-- honza/vim-snippets           --> snippets
+-- p00f/nvim-ts-rainbow         --> ts-rainbow
+-- notjedi/nvim-rooter.lua      --> rooter
+-- kyazdani42/nvim-tree.lua     --> tree
+-- ishan9299/nvim-solarized-lua --> solarized
 local function __get_plugin_name(arg)
     if type(arg) ~= 'string' then
         return
@@ -52,8 +65,8 @@ end
 -- Get config and setup str, e.g.
 -- { setup = require('xxx/xxx') }
 -- { config = require('xxx/xxx') }
-local function __get_config_setup_str(module, plugin_name, is_theme)
-    if type(module) ~= 'string' or type(plugin_name) ~= 'string' then
+local function __get_config_setup_str(config_path, plugin_name, is_theme)
+    if type(config_path) ~= 'string' or type(plugin_name) ~= 'string' then
         return
     end
 
@@ -63,11 +76,11 @@ local function __get_config_setup_str(module, plugin_name, is_theme)
         if not ok then
             require('v.utils.log').log(module)
         end
-    ]]):format(module)
+    ]]):format(config_path)
 
     if is_theme and plugin_name then
         require_str = ([[%s
-            local themes = require('v.plugins-config').themes
+            local themes = require('v.plugins-config.themes')
             local colorscheme = themes.colorscheme
 
             if colorscheme == '%s' then
@@ -80,17 +93,17 @@ local function __get_config_setup_str(module, plugin_name, is_theme)
     return require_str
 end
 
-local function __get_config_filepath(plugin_name, plugin_type, category)
-    if type(plugin_name) ~= 'string' or type(plugin_type) ~= 'string' then
-        return
-    end
+-- local function __get_config_filepath(plugin_name, plugin_type, category)
+--     if type(plugin_name) ~= 'string' or type(plugin_type) ~= 'string' then
+--         return
+--     end
 
-    local plugins_config_path = 'v.plugins-config'
+--     local plugins_config_root_path = 'v.plugins-config.'
 
-    path = string.format('%s.%s', plugins_config_path, category)
+--     path = string.format('%s.%s.', plugins_config_root_path, category)
 
-    return path .. plugin_name
-end
+--     return path .. plugin_name
+-- end
 
 local function __get_plugin_table(args, category)
     if type(args) == 'string' then
@@ -105,56 +118,27 @@ local function __get_plugin_table(args, category)
     -- for example, 
     --[[
     local M = {
-        { 'rcarriga/nvim-notify' }, -- beautiful notifications
-        { 'kyazdani42/nvim-web-devicons', as = 'devicons' }, -- colored icons
+        { 'kyazdani42/nvim-web-devicons', as = 'devicons' }, -- args[1] is 'kyazdani42/nvim-web-devicons'
     ]]
-    -- for the first item in M (which is args), the args is {'rcarriga/nvim-notify'}, 
-    -- and args[1] is 'rcarriga/nvim-notify', it is a string
-    local name = args.as or __get_plugin_name(args[1])
-    local opts = args.__opts or {}
-    args.__opts = nil -- we don't wanna pass this to packer
-
-    if opts.dev then
-        args[1] = __get_local_plugin_path(args[1])
-
-        if fn.isdirectory(args[1]) == 0 then
-            if opts.fallback then
-                args[1] = opts.fallback
-                name = args.as or __get_plugin_name(args[1])
-            else
-                vim.notify(
-                    'The plugin "'
-                        .. name
-                        .. '" was not found at: "'
-                        .. args[1]
-                        .. '". No fallback was provided.',
-                    'error'
-                )
-
-                return
-            end
-        end
-    end
-
+    local modified_name = args.as or __get_plugin_name(args[1])
     local is_theme = category == 'themes'
-    -- If config is nil, use default,
-    -- or, if use_setup not nil, but setup is nil
-    -- set default setup and config
-    if not args.config or (args.use_setup and not args.setup) then
-        -- local config_path = __get_config_filepath(name, plugin_type, category)
-        local config_path = v.conf_path(category)(name)
-        local require_str = __get_config_setup_str(config_path, name, is_theme)
+    
+    -- Construct config if it is nil (not passed by user)
+    if not args.config then
+        -- If it is theme, use a shared config (TODO: maybe not)
+        -- Otherwise, use plugin specific config
+        local config_path = v.conf_path(category)(modified_name)
+        local require_str = __get_config_setup_str(config_path, modified_name, is_theme)
 
-        if opts.setup then
-            args.setup = require_str
-        else
-            args.config = require_str
-        end
+        args.config = require_str
     end
 
-    if is_theme and not args.cond then
-        args.cond = "require('v.plugins-config').themes.colorscheme == '" .. name .. "'"
-    end
+    -- Construct setup if it is nil, but use_setup is set to true
+    -- if args.use_setup and not args.setup then
+    --     local setup_path = v.conf_path(category)(modified_name)
+    --     local require_str = __get_config_setup_str(config_path, modified_name, is_theme)
+    --     args.setup = require_str
+    -- end
 
     return args
 end

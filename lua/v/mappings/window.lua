@@ -18,7 +18,7 @@ v.set_keybindings({
     { 'n', '<leader>ns', [[ :vsp <C-R>=expand("%:p:h") . "/" <CR> ]], {silent = false} },
 
     -- open/switch  tabs
-    { 'n', '<leader>tn', '<cmd>tabedit %<CR>' },
+    -- { 'n', '<leader>tn', '<cmd>tabedit %<CR>' },
     -- { 'n', '<leader>tc', '<cmd>tabclose<CR>' },
     -- { 'n', '<leader>to', '<cmd>tabonly<CR>' },
     -- { 'n', '<leader>tm', '<cmd>tabmove<Space>' },

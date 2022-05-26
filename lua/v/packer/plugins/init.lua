@@ -8,7 +8,7 @@ local M = {
     project     = req_submodule('project'),
     git         = req_submodule('git'),
     lang        = req_submodule('lang'),
-    -- lsp         = req_submodule('lsp'),
+    lsp         = req_submodule('lsp'),
 }
 
 return M

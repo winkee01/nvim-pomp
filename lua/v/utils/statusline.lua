@@ -183,6 +183,7 @@ local function matches(str, list)
   end, list) > 0
 end
 
+--- check if ctx.filetype/buftype is in plain.filetypes/buftypes
 --- @param ctx table
 function M.is_plain(ctx)
   return matches(ctx.filetype, plain.filetypes)
@@ -323,7 +324,7 @@ local function filetype(ctx, opts)
   end
   local icon, hl
   local extension = fnamemodify(ctx.bufname, ':e')
-  local icons_loaded, devicons = v.safe_require('nvim-web-devicons')
+  local icons_loaded, devicons = v.safe_require('nvim-web-devicons', {silent = true})
   if icons_loaded then
     icon, hl = devicons.get_icon(ctx.bufname, extension, { default = true })
     hl = highlight_ft_icon(hl, opts.icon_bg)
@@ -446,8 +447,8 @@ end
 ---The currently focused function
 ---@return string?
 function M.current_function()
-  local gps = require('nvim-gps')
-  if gps.is_available() then
+  local ok, gps = pcall(require, 'nvim-gps')
+  if ok and gps.is_available() then
     return gps.get_location()
   end
 end
@@ -529,30 +530,31 @@ function M.mode()
   local hl = mode_highlight(current_mode)
 
   local mode_map = {
-    ['n'] = 'NORMAL',
-    ['no'] = 'N·OPERATOR PENDING',
+    ['n']   = 'NORMAL ',
+    ['no']  = 'N·OPERATOR PENDING',
     ['nov'] = 'N·OPERATOR BLOCK',
     ['noV'] = 'N·OPERATOR LINE',
-    ['v'] = 'VISUAL',
-    ['V'] = 'V·LINE',
+    ['v']   = 'VISUAL ',
+    ['V']   = 'V·LINE ',
     [''] = 'V·BLOCK',
-    ['s'] = 'SELECT',
-    ['S'] = 'S·LINE',
-    ['^S'] = 'S·BLOCK',
-    ['i'] = 'INSERT',
-    ['R'] = 'REPLACE',
-    ['Rv'] = 'V·REPLACE',
-    ['Rx'] = 'C·REPLACE',
-    ['Rc'] = 'C·REPLACE',
-    ['c'] = 'COMMAND',
-    ['cv'] = 'VIM EX',
-    ['ce'] = 'EX',
-    ['r'] = 'PROMPT',
-    ['rm'] = 'MORE',
-    ['r?'] = 'CONFIRM',
-    ['!'] = 'SHELL',
-    ['t'] = 'TERMINAL',
+    ['s']   = 'SELECT ',
+    ['S']   = 'S·LINE ',
+    ['^S']  = 'S·BLOCK',
+    ['i']   = 'INSERT ',
+    ['R']   = 'REPLACE',
+    ['Rv']  = 'V·REPLACE',
+    ['Rx']  = 'C·REPLACE',
+    ['Rc']  = 'C·REPLACE',
+    ['c']   = 'COMMAND',
+    ['cv']  = 'VIM EX',
+    ['ce']  = 'EX     ',
+    ['r']   = 'PROMPT ',
+    ['rm']  = 'MORE   ',
+    ['r?']  = 'CONFIRM',
+    ['!']   = 'SHELL  ',
+    ['t']   = 'TERMINAL',
   }
+  -- print("mode changed to: ", current_mode)
   return (mode_map[current_mode] or 'UNKNOWN'), hl
 end
 

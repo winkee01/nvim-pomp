@@ -24,19 +24,21 @@ local function render(props)
   return result
 end
 
-require('incline').setup({
-  window = {
-    winhighlight = {
-      inactive = {
-        Normal = 'Normal',
+return function()
+  require('incline').setup({
+    window = {
+      winhighlight = {
+        inactive = {
+          Normal = 'Normal',
+        },
+      },
+      width = 'fill',
+      padding = { left = 2, right = 1 },
+      margin = {
+        horizontal = 0,
       },
     },
-    width = 'fill',
-    padding = { left = 2, right = 1 },
-    margin = {
-      horizontal = 0,
-    },
-  },
-  hide = { focused_win = true },
-  render = render,
-})
+    hide = { focused_win = true },
+    render = render,
+  })
+end

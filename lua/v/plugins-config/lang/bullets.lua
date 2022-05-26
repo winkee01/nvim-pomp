@@ -1,4 +1,4 @@
-require('v.utils').set_viml_options('bullets', {
+v.set_viml_options('bullets', {
     enable_file_types           = { 'markdown' },
     enable_in_empty_buffers     = false,
     set_mappings                = true,

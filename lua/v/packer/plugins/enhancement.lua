@@ -16,7 +16,7 @@ local M = {
         'ggandor/lightspeed.nvim',
         keys = { '<C-s>', '<C-S-s>' },
     },
-
+    -- { 'chaoren/vim-wordmotion' }, -- problem with statusline mode display
 
     -- ## 2 ## View
     {
@@ -32,6 +32,15 @@ local M = {
             ']%',
             'z%',
         },
+    },
+    {
+      'declancm/cinnamon.nvim', -- NOTE: alternative: 'karb94/neoscroll.nvim'
+      config = function()
+        require('cinnamon').setup({
+          extra_keymaps = true,
+          scroll_limit = 50,
+        })
+      end,
     },
     'lfv89/vim-interestingwords',  -- Highlight different words
     'AndrewRadev/linediff.vim',    -- Diff two blocks of code in a tmp buffer
@@ -87,7 +96,8 @@ local M = {
       },
     },
     { 'windwp/nvim-autopairs', event = 'InsertEnter' }, -- auto pairs for {[()]}
-    { 'machakann/vim-swap', event = 'VimEnter' },
+    -- { 'machakann/vim-swap', event = 'VimEnter' }, -- swap the position of two function arguments
+    { 'mizlan/iswap.nvim', event = 'VimEnter' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NUD' } }, -- Narrow region: Edit only on selected region
     {
         'AndrewRadev/splitjoin.vim',
@@ -110,8 +120,17 @@ local M = {
             { 'v', 'X' },
         },
     },
+
+    -- Surrounding  
     { 'ur4ltz/surround.nvim' },
-    -- like tpope/vim-surround but for functions
+    -- {
+    --     'tpope/vim-surround',
+    --     after = 'vim-repeat',
+    --     event = { 'CursorMoved', 'CursorHold' },
+    -- },
+
+    -- Surround for functions
+    -- { 'Matt-A-Bennett/vim-surround-funk', config = conf('surround-funk') }
     -- {
     --     'AndrewRadev/dsf.vim',
     --     after = 'vim-surround',
@@ -126,14 +145,7 @@ local M = {
     --     },
     -- },
 
-    -- surrounding manipulatiuon maps
-    -- {
-    --     'tpope/vim-surround',
-    --     after = 'vim-repeat',
-    --     event = { 'CursorMoved', 'CursorHold' },
-    -- },
-
-    -- word manipulation utilities
+    -- Word manipulation utilities
     -- {
     --     'tpope/vim-abolish',
     --     cmd = { 'Abolish', 'Subvert' },
@@ -209,7 +221,7 @@ local M = {
         require('fold-cycle').setup({
             softwrap_movement_fix = false,
         })
-        v.map('n', '<BS>', [[ :call require('fold-cycle').open() ]] )
+        -- v.map('n', '<BS>', [[ :call require('fold-cycle').open() ]] )
       end,
     },
 }

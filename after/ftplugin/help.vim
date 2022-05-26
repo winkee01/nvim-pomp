@@ -5,9 +5,10 @@ setlocal concealcursor=nc
 ""---------------------------------------------------------------------------//
 " Credit: Tweekmonster!
 ""---------------------------------------------------------------------------//
-" if this a vim help file rather than one I'm creating
+" if this is a vim help file
 " add mappings otherwise do not
 if expand('%') =~# '^'.$VIMRUNTIME || &readonly
+  " TODO: if buftype is dashboard, use full screen to show help
   autocmd BufWinEnter <buffer> wincmd L | vertical  " We don't need resize here, because we have set winsize in au AutoResize
   " autocmd BufWinEnter <buffer> wincmd L | vertical resize 70
   nnoremap <buffer> q :<c-u>q<cr>
@@ -19,7 +20,7 @@ if expand('%') =~# '^'.$VIMRUNTIME || &readonly
   nnoremap <silent><buffer> S ?\|\zs\S\+\ze\|<CR>
   finish
 else
-  setlocal spell spelllang=en_gb
+  setlocal spell spelllang=en_us
 endif
 
 setlocal formatexpr=HelpFormatExpr()

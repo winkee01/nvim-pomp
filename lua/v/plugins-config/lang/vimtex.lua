@@ -1,4 +1,4 @@
-require('v.utils').set_viml_options('vimtex', {
+v.set_viml_options('vimtex', {
     compiler_method = 'latexmk',
     compiler_progname = 'nvr',
     enabled = true,

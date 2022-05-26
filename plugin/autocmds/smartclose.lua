@@ -11,6 +11,9 @@ local smart_close_filetypes = {
   'tsplayground',
   'qf',
   'netrw',
+  'dashboard',
+  'terminal',
+  'toggleterm',
 }
 
 local function smart_close()
@@ -19,8 +22,13 @@ local function smart_close()
   else
     -- get back from netrw
     -- https://superuser.com/questions/552828/return-from-netrw-vim-file-explorer-to-edited-buffer
-    vim.cmd('bdelete!')  
+    vim.cmd('bdelete!')
   end
+
+  -- TODO: 
+  -- if buftype is dashboard
+  -- if it is the only one buffer
+
 end
 
 v.augroup('SmartClose', {

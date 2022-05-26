@@ -14,4 +14,4 @@ local function clip()
     )
 end
 
-as.nnoremap('<localleader>p', clip, 'neoclip: open yank history')
+v.map('n', '<localleader>p', clip, 'neoclip: open yank history')

@@ -1,4 +1,4 @@
-require('v.utils').set_viml_options('mkdp', {
+v.set_viml_options('mkdp', {
     auto_start = false,
     auto_close = false,
     refresh_slow = true,

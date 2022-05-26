@@ -105,7 +105,7 @@ function v.is_empty(item)
   end
 end
 
----Require a module using [pcall] and report any errors
+---Wrapper for pcall
 ---@param module string
 ---@param opts table?
 ---@return boolean, any
@@ -236,13 +236,15 @@ function v.conf(name)
     return require(fmt('v.plugins-config.%s', name))
 end
 
-function v.conf_ex(category)
+function v.conf_wrapper(category)
   return function(name)
-    require(fmt('v.plugins-config.%s.%s', category, name))
+    return function()
+      require(fmt('v.plugins-config.%s.%s', category, name))
+    end
   end
 end
 
-function v.conf_ex_f(category)
+function v.conf_ex(category)
   return function(name)
     return require(fmt('v.plugins-config.%s.%s', category, name))
   end
@@ -289,6 +291,7 @@ function v.map(mode, lhs, rhs, opts)
 end
 
 function v.set_keybindings(args, common_opts)
+  common_opts = common_opts or {noremap = true, silent = true}
   for _, map_table in ipairs(args) do
     local mode, lhs, rhs, opts = unpack(map_table)
     local options = vim.tbl_extend('force', common_opts or {}, opts or {})
@@ -326,4 +329,15 @@ function v.set_viml_options(lead, opts, unique_value)
 
     vim.g[lead .. option] = value
   end
+end
+
+
+function v.is_buffer_empty()
+    -- Check whether the current buffer is empty
+    return vim.fn.empty(vim.fn.expand('%:t')) == 1
+end
+
+function v.has_width_gt(cols)
+    -- Check if the windows width is greater than a given number of columns
+    return vim.fn.winwidth(0) / 2 > cols
 end

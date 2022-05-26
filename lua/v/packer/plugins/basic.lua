@@ -7,11 +7,11 @@ local M = {
 
     -- TODO: use {'lewis6991/impatient.nvim', rocks = 'mpack'}
     { 'lewis6991/impatient.nvim' }, -- improve startup time
-    { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup profiling
-    { 'antoinemadec/FixCursorHold.nvim' }, -- fixes CursorHold and CursorHoldl
-    { 'nvim-lua/plenary.nvim' }, -- great utility lua functions
+    -- { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup profiling
+    -- { 'antoinemadec/FixCursorHold.nvim' }, -- fixes CursorHold and CursorHoldl
+    -- { 'nvim-lua/plenary.nvim' }, -- great utility lua functions
     
-    { 'penlight', use = 'use_rocks'}
+    -- { 'penlight', use = 'use_rocks'}
 }
 
 return M
