@@ -231,3 +231,5 @@ v.style.current = {
 -- Set a default colorscheme to avoid errors in highlight.lua
 -- This will be changed once a theme plugin is loaded, check v/plugins-config/theme.lua
 vim.cmd('colorscheme blue') 
+
+require 'v.highlights'

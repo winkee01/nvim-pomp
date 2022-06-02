@@ -32,45 +32,8 @@ local colors = {
   yellow = '#cbcb41',
 }
 
--- o.background = 'dark' -- the background color is dark
--- o.colorcolumn = '+1' -- show mark at column 80
--- o.cursorline = true -- highlights current line
--- o.laststatus = 3
--- o.list = true -- show listchars (below)
--- o.number = true -- line numbers
--- o.pumblend = 10 -- pum transparency
--- o.pumheight = 10 -- makes pum menu smaller
--- o.relativenumber = true -- relative line numbers
--- o.ruler = true -- show cursor position
--- o.scrolloff = 1 -- number of screen lines around cursor
--- o.showmode = false -- hide --INSERT--, --VISUAL--, etc
--- o.showtabline = 1 -- always show tab line (top bar)
--- o.sidescrolloff = 5 -- number of screen columns around cursor
--- o.signcolumn = 'yes:2' -- always display 2 signcolumns
--- o.termguicolors = true -- true color support
--- o.wrap = false -- don't wrap lines by default
-
--- only the chosen colorscheme will be loaded by packer
--- local colorscheme = 'doom-one'
--- local colorscheme_plugin = colorscheme..'.nvim'
-
--- if v.plugin_installed(colorscheme_plugin) then
---   vim.cmd(fmt('packadd! %s', colorscheme_plugin))
---   vim.cmd(fmt('colorscheme %s', colorscheme))
--- end
-
-
------------------------------------------------------------------------------//
--- Color Scheme {{{1
------------------------------------------------------------------------------//
 -- override default colorscheme
 local colorscheme =  'doom-one'
-local colorscheme_plugin = colorscheme..'.nvim'
-
-if v.plugin_installed(colorscheme_plugin) then
-  vim.cmd(fmt('packadd! %s', colorscheme_plugin))
-  vim.cmd(fmt('colorscheme %s', colorscheme))
-end
 
 local M = {}
 
@@ -97,22 +60,5 @@ M.post_colorscheme_hook = function()
   })
 end
 
--- o.listchars = {
---   conceal = '┊',
---   eol = ' ', -- ↲
---   extends = '>',
---   nbsp = '␣',
---   precedes = '<',
---   space = ' ',
---   tab = '» ',
---   trail = '•',
--- }
-
--- o.fillchars = {
---   eob = ' ',
---   fold = ' ',
---   stl = ' ',
---   stlnc = ' ',
--- }
 
 return M
