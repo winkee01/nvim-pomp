@@ -165,6 +165,16 @@ local M = {
             { 'neovim/nvim-lspconfig' },
         },
     },
+
+    {
+      'j-hui/fidget.nvim',  -- lsp loading progress
+      local_path = 'contributing',
+      config = function()
+        require('fidget').setup({
+          text = { spinner = 'moon' },
+        })
+      end,
+    }
 }
 
 return M

@@ -2,7 +2,6 @@ local conf = v.conf_ex('appearance')
 
 local M = {
     { 'kyazdani42/nvim-web-devicons', as = 'devicons'}, -- colored icons
-    { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' }, -- colored matching brackets
     {
         'SmiteshP/nvim-gps',    -- show cursor context in statusline
         requires = 'nvim-treesitter/nvim-treesitter',
@@ -49,7 +48,8 @@ local M = {
     -- },
 
     { 'crispgm/nvim-tabline' }, -- display opened tabs (2+)
-    { 'stevearc/dressing.nvim' }, -- improve vim.ui
+    { 'stevearc/dressing.nvim', after = 'telescope.nvim', config = conf('dressing') }, -- improve vim.ui
+
     -- Make Color Code display color
     -- DEPENDENCY: Golang
     {
@@ -68,6 +68,13 @@ local M = {
       'winkee01/galaxyline.nvim',
       -- requires = 'SmiteshP/nvim-gps',
       config = conf('galaxyline'),
+    },
+    {
+      'lewis6991/satellite.nvim',
+      config = v.conf_wrapper('appearance')('satellite')()
+      -- config = function()
+      --   require('satellite').setup()
+      -- end,
     }
 }
 

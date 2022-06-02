@@ -1,5 +1,5 @@
 -- Language enhancement
-local conf = v.conf_ex('lsp')
+local conf = v.conf_ex('lang')
 
 local M = {
     {
@@ -8,12 +8,28 @@ local M = {
         -- config = conf('treesitter'),
         local_path = 'contributing',
     },
+    { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' }, -- colored matching brackets
+
     -- { 
     --     'David-Kunz/treesitter-unit', -- deal with treesitter units
     --     requires = 'nvim-treesitter/nvim-treesitter',
     --     after = 'nvim-treesitter',
     -- },
     -- { 'nvim-neorg/tree-sitter-norg' },
+    { 'RRethy/nvim-treesitter-endwise' },
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    -- {
+    --   'nvim-treesitter/playground',
+    --   keys = '<leader>E',
+    --   cmd = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
+    --   setup = function()
+    --     v.map(
+    --       '<leader>E',
+    --       '<Cmd>TSHighlightCapturesUnderCursor<CR>',
+    --       'treesitter: highlight cursor group'
+    --     )
+    --   end,
+    -- },
 
     -- lua, JSON, ...
     { 'folke/lua-dev.nvim', requires = 'nvim-lua/plenary.nvim' }, -- see v/plugins-config/lsp/servers/sumneko_lua.lua
@@ -61,12 +77,20 @@ local M = {
         as = 'jsdoc'
     },
     { 'milisims/nvim-luaref', ft = 'lua' }, -- lua documentation in :help
+
+    -- Spell
     { 
         'psliwka/vim-dirtytalk',  -- spellcheck dictionary for programmers
         run = ':DirtytalkUpdate', 
         config = function() 
             vim.opt.spelllang:append('programming') 
         end 
+    },
+    {
+      'lewis6991/spellsitter.nvim',
+      config = function()
+        require('spellsitter').setup({ enable = true })
+      end,
     },
     -- markdown previewer in browser
     -- DEPENDENCY: npm
@@ -126,6 +150,16 @@ local M = {
             'jsonp',
         },
     },
+
+    {
+      'akinsho/flutter-tools.nvim',
+      requires = { 'mfussenegger/nvim-dap', 'plenary.nvim' },
+      -- local_path = 'personal',
+      config = conf('flutter-tools'),
+    },
+
+    -- { 'dart-lang/dart-vim-plugin' }
+    { 'mtdl9/vim-log-highlighting' },
 
     -- better commentstrings based in treesitter
     {

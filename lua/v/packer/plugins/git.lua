@@ -2,6 +2,24 @@
 local conf = v.conf_ex('git')
 
 local M = {
+    {
+      'ruifm/gitlinker.nvim',
+      requires = 'plenary.nvim',
+      keys = { '<localleader>gu', '<localleader>go' },
+      -- setup = function()
+      --   require('which-key').register(
+      --     { gu = 'gitlinker: get line url', go = 'gitlinker: open repo url' },
+      --     { prefix = '<localleader>' }
+      --   )
+      -- end,
+      config = function()
+        local linker = require('gitlinker')
+        linker.setup({ mappings = '<localleader>gu' })
+        v.map('n', '<localleader>go', function()
+          linker.get_repo_url({ action_callback = require('gitlinker.actions').open_in_browser })
+        end, 'gitlinker: open in browser')
+      end,
+    },
     -- git CLI for command mode
     -- TODO: 
     -- something like this would be nice 
@@ -38,7 +56,20 @@ local M = {
         'sindrets/diffview.nvim',   -- git diff for modified files
         requires = 'nvim-lua/plenary.nvim',
         cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
+        module = 'diffview',
         after = 'devicons',
+        -- setup = function()
+        --     v.map('n', '<localleader>gd', '<Cmd>DiffviewOpen<CR>', 'diffview: diff HEAD')
+        -- end,
+        config = function()
+            require('diffview').setup({
+                enhanced_diff_hl = true,
+                key_bindings = {
+                    file_panel = { q = '<Cmd>DiffviewClose<CR>' },
+                    view = { q = '<Cmd>DiffviewClose<CR>' },
+                },
+            })
+        end,
     },
     {
         'akinsho/git-conflict.nvim',
@@ -48,6 +79,22 @@ local M = {
                 disable_diagnostics = true,
             })
         end,
+    },
+    {
+      'TimUntersberger/neogit',
+      cmd = 'Neogit',
+      keys = { '<localleader>gs', '<localleader>gl', '<localleader>gp' },
+      requires = 'plenary.nvim',
+      setup = conf('neogit').setup,
+      config = conf('neogit').config,
+    },
+    {
+      'rlch/github-notifications.nvim',
+      -- don't load this plugin if the gh cli is not installed
+      requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+      cond = function()
+        return v.executable('gh')
+      end,
     },
 }
 

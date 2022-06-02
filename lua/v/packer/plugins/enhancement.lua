@@ -1,3 +1,5 @@
+local conf = v.conf_ex('enhancement')
+
 local M = {
     -- ## 0 ## misc
     -- { 'echasnovski/mini.nvim' },
@@ -35,12 +37,13 @@ local M = {
     },
     {
       'declancm/cinnamon.nvim', -- NOTE: alternative: 'karb94/neoscroll.nvim'
-      config = function()
-        require('cinnamon').setup({
-          extra_keymaps = true,
-          scroll_limit = 50,
-        })
-      end,
+      config = conf('cinnamon')
+      -- config = function()
+      --   require('cinnamon').setup({
+      --     extra_keymaps = true,
+      --     scroll_limit = 50,
+      --   })
+      -- end,
     },
     'lfv89/vim-interestingwords',  -- Highlight different words
     'AndrewRadev/linediff.vim',    -- Diff two blocks of code in a tmp buffer

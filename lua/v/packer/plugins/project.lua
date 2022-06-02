@@ -86,7 +86,7 @@ local M = {
     -- 3. Buffer
     {
       'akinsho/bufferline.nvim',
-      requires = 'nvim-web-devicons',
+      requires = 'kyazdani42/nvim-web-devicons',
       config = conf('bufferline'),
       -- local_path = 'personal',
     },
@@ -127,14 +127,32 @@ local M = {
       -- config = conf('telescope'),
     },
 
-    -- 5. Terminal
+    -- 5. Quickfix list
+    {
+      'https://gitlab.com/yorickpeterse/nvim-pqf',
+      event = 'BufReadPre',
+      config = function()
+        require('v.utils.highlights').set_hi_plugin('pqf', { qfPosition = { link = 'Tag' } })
+        require('pqf').setup({})
+      end,
+    },
+
+    {
+      'kevinhwang91/nvim-bqf',
+      ft = 'qf',
+      config = function()
+        require('as.highlights').set_hi_plugin('bqf', { BqfPreviewBorder = { foreground = 'Gray' } })
+      end,
+    },
+
+    -- 6. Terminal
     {
       'akinsho/toggleterm.nvim',
       -- local_path = 'personal',
       config = conf('toggleterm'),
     },
 
-    -- 6. Plugin developement & Config reloading
+    -- 7. Plugin developement & Config reloading
     {
       'klen/nvim-config-local',
       config = function()
@@ -144,6 +162,19 @@ local M = {
       end,
     },
     { 'tami5/sqlite.lua' }, -- sudo apt install libsqlite3-dev
+
+    -- 8. Org mode
+    -- {
+    --   'vhyrro/neorg',
+    --   requires = { 'vhyrro/neorg-telescope', 'max397574/neorg-kanban' },
+    --   config = conf('neorg'),
+    -- },
+
+    -- {
+    --   'lukas-reineke/headlines.nvim',
+    --   setup = conf('headlines').setup,
+    --   config = conf('headlines').config,
+    -- },
 }
 
 return M
