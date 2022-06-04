@@ -98,7 +98,24 @@ local M = {
         },
       },
     },
-    { 'windwp/nvim-autopairs', event = 'InsertEnter' }, -- auto pairs for {[()]}
+    { 
+        'windwp/nvim-autopairs', 
+        event = 'InsertEnter',
+        config = function()
+            require('nvim-autopairs').setup({
+              close_triple_quotes = true,
+              check_ts = true,
+              ts_config = {
+                lua = { 'string' },
+                dart = { 'string' },
+                javascript = { 'template_string' },
+              },
+              fast_wrap = {
+                map = '<c-e>',
+              },
+            })
+          end,
+    },
     -- { 'machakann/vim-swap', event = 'VimEnter' }, -- swap the position of two function arguments
     { 'mizlan/iswap.nvim', event = 'VimEnter' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NUD' } }, -- Narrow region: Edit only on selected region

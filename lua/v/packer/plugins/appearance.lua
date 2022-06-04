@@ -70,7 +70,7 @@ local M = {
       config = conf('galaxyline'),
     },
     {
-      'lewis6991/satellite.nvim',
+      'lewis6991/satellite.nvim', -- displays decorated scrollbars.
       config = v.conf_wrapper('appearance')('satellite')()
       -- config = function()
       --   require('satellite').setup()

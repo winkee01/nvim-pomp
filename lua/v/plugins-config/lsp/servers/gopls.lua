@@ -35,7 +35,7 @@ local opts = {
   flags = {
     debounce_text_changes = 150,
   },
-  -- capabilities = NvimMax.capabilities
+  -- capabilities = v.lsp.capabilities
   -- on_attach = v.lsp.on_attach -- use global on_attach
   -- on_attach = function(client, bufnr)
     

@@ -39,7 +39,7 @@ return function()
     --   require('lspconfig')[server].setup(config)
     -- end
 
-    -- lsp_installer.on_server_ready(function(server)
+    -- lsp_installer.on_server_ready(function(server) -- on_server_ready() is deprecated
     --     local default_opts = {
     --         on_attach = function(client, bufnr)
     --             client.server_capabilities.document_formatting = false,

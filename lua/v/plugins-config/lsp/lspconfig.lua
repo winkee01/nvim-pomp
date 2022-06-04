@@ -58,6 +58,7 @@ v.lsp.servers = {
   emmet_ls = require("v.plugins-config.lsp.servers.emmetls"),         -- emmet
   pyright = require("v.plugins-config.lsp.servers.pyright"),          -- python
   gopls = require("v.plugins-config.lsp.servers.gopls"),              -- go
+  -- gopls = false,  -- use go.nvim
   clangd = require("v.plugins-config.lsp.servers.clangd"),            -- c,cpp
   rust_analyzer = require("v.plugins-config.lsp.servers.rust_analyzer"),  -- rust
   jsonls = require("v.plugins-config.lsp.servers.jsonls"),            -- json
@@ -93,7 +94,7 @@ return function()
   -- Call nvim-lsp-installer's setup() function before you call server's setup()
   -- :h nvim-lsp-installer-quickstart
   require('nvim-lsp-installer').setup({
-    ensure_installed = v.lsp.servers,
+    -- ensure_installed = v.lsp.servers,
     automatic_installation = true,
   })
   require('v.plugins-config.lsp.lsp.diagnostic') -- apply diagnostic configs
@@ -102,6 +103,9 @@ return function()
     return
   end
   for name, config in pairs(v.lsp.servers) do
+    if name == 'gopls' then
+      print('gopls config: ', config)
+    end
     if config then
       require('lspconfig')[name].setup(v.lsp.get_server_config(config))
     end

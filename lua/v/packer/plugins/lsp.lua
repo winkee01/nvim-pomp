@@ -45,8 +45,17 @@ local M = {
     -- function signature
     {
         'ray-x/lsp_signature.nvim',
-        event = 'CursorHold',
+        -- event = 'CursorHold',
         after = 'nvim-lspconfig',
+        config = function()
+            require('lsp_signature').setup({
+                bind = true,
+                fix_pos = false,
+                auto_close_after = 15, -- close after 15 seconds
+                hint_enable = false,
+                handler_opts = { border = v.style.current.border },
+            })
+          end,
     },
 
     -- nice code actions
@@ -108,6 +117,7 @@ local M = {
             },
         },
         event = { 'InsertEnter', 'CmdLineEnter' },
+        config = conf('cmp'),
     },
     {
         'L3MON4D3/LuaSnip', 
@@ -123,16 +133,26 @@ local M = {
     },
     { 'rafamadriz/friendly-snippets'}, -- Snippets written in lua, needs LuaSnip or vsnip engine
     { 'honza/vim-snippets' }, -- Snippets written in snipmate syntax, needs Ultisnips or LuaSnip/vsnip
-    { 'SirVer/ultisnips', event = 'InsertEnter' }, -- Snippet engine
+    -- { 'SirVer/ultisnips', event = 'InsertEnter' }, -- Snippet engine
 
+    { 'tami5/lspsaga.nvim', config = conf('lspsaga') },
+
+    -- AI coding
+    {
+      'tzachar/cmp-tabnine',
+      run = './install.sh',
+      requires = 'hrsh7th/nvim-cmp',
+      -- after = 'cmp-calc'
+      config = conf('tabnine'),
+    },
     {
       'github/copilot.vim',
       config = function()
         vim.g.copilot_no_tab_map = true
-        -- v.imap('<Plug>(as-copilot-accept)', "copilot#Accept('<Tab>')", { expr = true })
-        -- v.inoremap('<M-]>', '<Plug>(copilot-next)')
-        -- v.inoremap('<M-[>', '<Plug>(copilot-previous)')
-        -- v.inoremap('<C-\\>', '<Cmd>vertical Copilot panel<CR>')
+        v.map('i', '<Plug>(as-copilot-accept)', "copilot#Accept('<Tab>')", { expr = true })
+        v.map('i', '<M-]>', '<Plug>(copilot-next)')
+        v.map('i', '<M-[>', '<Plug>(copilot-previous)')
+        v.map('i', '<C-\\>', '<Cmd>vertical Copilot panel<CR>')
 
         vim.g.copilot_filetypes = {
           ['*'] = true,
@@ -174,7 +194,14 @@ local M = {
           text = { spinner = 'moon' },
         })
       end,
-    }
+    },
+    -- { 
+    --     'ray-x/go.nvim', 
+    --     -- require = 'hrsh7th/nvim-cmp',
+    --     -- after = 'nvim-lspconfig',
+    --     ft = 'go', 
+    --     config = conf('go')
+    -- },
 }
 
 return M

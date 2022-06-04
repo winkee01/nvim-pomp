@@ -48,7 +48,7 @@ vim.diagnostic.config({
   --   return vim.b[bufnr].show_signs == true
   -- end
   -- signs = { severity = { min = vim.diagnostic.severity.WARN } },
-  update_in_insert = true,
+  update_in_insert = false,
   virtual_text = false,
   -- virtual_text = {
   --   source = "always",  -- Or "if_many"

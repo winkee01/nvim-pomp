@@ -51,7 +51,7 @@ local opts = {
   --   end
   --   -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   --   require("keybindings_lsp").mapLSP(buf_set_keymap)
-  --   -- require('plugin-lsp/diagnostics')
+  --   -- require('v.plugins-config.lsp.lsp.diagnostics')
   --   vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
   -- end,
 }

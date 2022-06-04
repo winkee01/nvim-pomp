@@ -16,7 +16,16 @@ local M = {
     --     after = 'nvim-treesitter',
     -- },
     -- { 'nvim-neorg/tree-sitter-norg' },
-    { 'RRethy/nvim-treesitter-endwise' },
+    { 
+        'RRethy/nvim-treesitter-endwise',
+        config = function()
+            require('nvim-treesitter.configs').setup {
+            endwise = {
+                enable = true,
+            },
+        }
+        end,
+    },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     -- {
     --   'nvim-treesitter/playground',
@@ -151,12 +160,12 @@ local M = {
         },
     },
 
-    {
-      'akinsho/flutter-tools.nvim',
-      requires = { 'mfussenegger/nvim-dap', 'plenary.nvim' },
-      -- local_path = 'personal',
-      config = conf('flutter-tools'),
-    },
+    -- {
+    --   'akinsho/flutter-tools.nvim',
+    --   requires = { 'mfussenegger/nvim-dap', 'plenary.nvim' },
+    --   -- local_path = 'personal',
+    --   config = conf('flutter-tools'),
+    -- },
 
     -- { 'dart-lang/dart-vim-plugin' }
     { 'mtdl9/vim-log-highlighting' },

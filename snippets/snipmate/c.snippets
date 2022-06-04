@@ -1,0 +1,22 @@
+snippet main "" !b
+int main(int argc, char *argv[]) {
+    ${VISUAL}$0
+    return 0;
+}
+endsnippet
+snippet st "struct denifition" !b
+struct ${1:Struct} {
+    ${0:}
+};
+endsnippet
+snippet fun "function declaration" !b
+${1:void} ${2:function_name}($3) {
+    ${VISUAL}$0
+}
+endsnippet
+
+snippet for "for loop (for)" !b
+for (${2:i} = ${3:0}; $2 < ${1:count}; ${4:++$2}) {
+    ${VISUAL}$0
+}
+endsnippet
