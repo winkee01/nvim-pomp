@@ -216,10 +216,10 @@ function M.init(packer)
 end
 
 function M.setup_plugins(packer)
-    local ok, ps = pcall(require, 'v.packer.plugins')
+    local ok, ps = pcall(require, v.plugins_config_path_root)
     if not ok then
         -- error(ps)
-        vim.notify("failed to require'v.packer.plugins'\n" .. ps)
+        vim.notify(string.format("failed to require'%s'\n%s", v.plugins_config_path_root, ps))
         return
     end
     __load_plugins(ps, packer)

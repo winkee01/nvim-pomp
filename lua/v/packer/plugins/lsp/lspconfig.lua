@@ -97,7 +97,7 @@ return function()
     ensure_installed = v.lsp.servers,
     automatic_installation = true,
   })
-  require('v.plugins-config.lsp.lsp.diagnostic') -- apply diagnostic configs
+  require(v.plugins_config_path_root .. '.lsp.lsp.diagnostic') -- apply diagnostic configs
 
   if vim.v.vim_did_enter == 1 then
     return

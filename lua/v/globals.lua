@@ -28,7 +28,7 @@ local fmt = string.format
 _G.v = {
   -- some vim mappings require a mixture of commandline commands and function calls
   -- this table is place to store lua functions to be called in those mappings
-  plugins_config_path_root = 'v.packer.modules',
+  plugins_config_path_root = 'v.packer.plugins',
   -- plugins_config_path_root = 'v.plugins-config',
   mappings = {},
 }
