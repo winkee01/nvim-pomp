@@ -1,3 +1,5 @@
+-- Notice:
+-- This file is not used, and serves only as an example of how packer is used
 local utils = require('v.utils.packer')
 
 local conf = v.conf

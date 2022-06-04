@@ -51,22 +51,22 @@ end
 -- because lsp_installer has defined that.
 v.lsp.servers = {
   -- efm = require('v.plugins-config.lsp.servers.efm'),
-  sumneko_lua = require("v.plugins-config.lsp.servers.sumneko_lua"),  -- lua
-  tsserver = require("v.plugins-config.lsp.servers.tsserver"),        -- javascript
-  cssls = require("v.plugins-config.lsp.servers.cssls"),              -- css
-  html = require("v.plugins-config.lsp.servers.html"),                -- html
-  emmet_ls = require("v.plugins-config.lsp.servers.emmetls"),         -- emmet
-  pyright = require("v.plugins-config.lsp.servers.pyright"),          -- python
-  gopls = require("v.plugins-config.lsp.servers.gopls"),              -- go
+  sumneko_lua = require(v.plugins_config_path_root .. '.lsp.servers.sumneko_lua'),  -- lua
+  tsserver = require(v.plugins_config_path_root .. '.lsp.servers.tsserver'),        -- javascript
+  cssls = require(v.plugins_config_path_root .. '.lsp.servers.cssls'),              -- css
+  html = require(v.plugins_config_path_root .. '.lsp.servers.html'),                -- html
+  emmet_ls = require(v.plugins_config_path_root .. '.lsp.servers.emmetls'),         -- emmet
+  pyright = require(v.plugins_config_path_root .. '.lsp.servers.pyright'),          -- python
+  gopls = require(v.plugins_config_path_root .. '.lsp.servers.gopls'),              -- go
   -- gopls = false,  -- use go.nvim
-  clangd = require("v.plugins-config.lsp.servers.clangd"),            -- c,cpp
-  rust_analyzer = require("v.plugins-config.lsp.servers.rust_analyzer"),  -- rust
-  jsonls = require("v.plugins-config.lsp.servers.jsonls"),            -- json
-  texlab = require("v.plugins-config.lsp.servers.texlab"),            -- latex
-  ltex = require("v.plugins-config.lsp.servers.ltex"),                -- latex
-  yamlls = require("v.plugins-config.lsp.servers.yamlls"),
-  bashls = require("v.plugins-config.lsp.servers.bashls"),
-  dockerls = require("v.plugins-config.lsp.servers.dockerls"),
+  clangd = require(v.plugins_config_path_root .. '.lsp.servers.clangd'),            -- c,cpp
+  rust_analyzer = require(v.plugins_config_path_root .. '.lsp.servers.rust_analyzer'),  -- rust
+  jsonls = require(v.plugins_config_path_root .. '.lsp.servers.jsonls'),            -- json
+  texlab = require(v.plugins_config_path_root .. '.lsp.servers.texlab'),            -- latex
+  ltex = require(v.plugins_config_path_root .. '.lsp.servers.ltex'),                -- latex
+  yamlls = require(v.plugins_config_path_root .. '.lsp.servers.yamlls'),
+  bashls = require(v.plugins_config_path_root .. '.lsp.servers.bashls'),
+  dockerls = require(v.plugins_config_path_root .. '.lsp.servers.dockerls'),
   vimls = {},
   cmake = {},
   -- diagnosticls = require("v.plugins-config.lsp.servers.diagnosticls"),
@@ -94,7 +94,7 @@ return function()
   -- Call nvim-lsp-installer's setup() function before you call server's setup()
   -- :h nvim-lsp-installer-quickstart
   require('nvim-lsp-installer').setup({
-    -- ensure_installed = v.lsp.servers,
+    ensure_installed = v.lsp.servers,
     automatic_installation = true,
   })
   require('v.plugins-config.lsp.lsp.diagnostic') -- apply diagnostic configs

@@ -28,6 +28,8 @@ local fmt = string.format
 _G.v = {
   -- some vim mappings require a mixture of commandline commands and function calls
   -- this table is place to store lua functions to be called in those mappings
+  plugins_config_path_root = 'v.packer.modules',
+  -- plugins_config_path_root = 'v.plugins-config',
   mappings = {},
 }
 
@@ -233,26 +235,32 @@ end
 ---@param name string
 ---@return any
 function v.conf(name)
-    return require(fmt('v.plugins-config.%s', name))
+    return require(fmt('%s.%s', v.plugins_config_path_root, name))
 end
 
 function v.conf_wrapper(category)
   return function(name)
     return function()
-      require(fmt('v.plugins-config.%s.%s', category, name))
+      require(fmt('%s.%s.%s', v.plugins_config_path_root, category, name))
     end
   end
 end
 
 function v.conf_ex(category)
   return function(name)
-    return require(fmt('v.plugins-config.%s.%s', category, name))
+    return require(fmt('%s.%s.%s', v.plugins_config_path_root, category, name))
+  end
+end
+
+function v.conf_mod(category)
+  return function(name)
+    return require(fmt('%s.%s.%s', v.plugins_config_path_root, category, name))
   end
 end
 
 function v.conf_path(category)
   return function(name)
-    return fmt('v.plugins-config.%s.%s', category, name)
+    return fmt('%s.%s.%s', v.plugins_config_path_root, category, name)
   end
 end
 
