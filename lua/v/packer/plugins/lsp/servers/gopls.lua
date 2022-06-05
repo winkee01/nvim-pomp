@@ -18,6 +18,9 @@ function GoImports()
 end
 
 local opts = {
+  init_options = {
+    usePlaceholders = true,
+  },
   settings = {
     gopls = {
       allExperiments = true,
@@ -34,8 +37,8 @@ local opts = {
   flags = {
     debounce_text_changes = 150,
   },
-  -- capabilities = v.lsp.capabilities
-  -- on_attach = v.lsp.on_attach -- use global on_attach
+  capabilities = capabilities,
+  -- on_attach = v.lsp.on_attach, -- use global on_attach
   -- on_attach = function(client, bufnr)
     
     -- auto format

@@ -86,7 +86,6 @@ function v.lsp.get_server_config(conf)
   
   config.on_attach = config.on_attach or v.lsp.on_attach
   config.capabilities = config.capabilities or v.lsp.capabilities
-
   return config
 end
 

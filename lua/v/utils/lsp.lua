@@ -2,12 +2,16 @@ local M = {}
 
 function M.update_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-  if ok then
-    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-  end
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  v.lsp.capabilities = capabilities
+  -- local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+  local ok, cmp_nvim_lsp = v.safe_require('cmp_nvim_lsp')
+  if ok then
+    return cmp_nvim_lsp.update_capabilities(capabilities)
+  else
+    vim.notify(cmp_nvim_lsp, vim.log.levels.WARN, {title = 'Capabilities',})
+    return capabilities
+  end
 end
 
 -----------------------------------------------------------------------------//

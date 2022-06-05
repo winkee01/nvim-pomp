@@ -1,7 +1,7 @@
 local conf = v.conf_ex('lsp')
 
 local M = {
-    { 'neovim/nvim-lspconfig', config = conf('lspconfig') },
+    -- { 'neovim/nvim-lspconfig', config = conf('lspconfig') },
     {
         'williamboman/nvim-lsp-installer',
         requires = { { 'neovim/nvim-lspconfig', config = conf('lspconfig') } },
@@ -77,7 +77,7 @@ local M = {
     {
         'hrsh7th/nvim-cmp',
         requires = {
-            { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
+            { 'hrsh7th/cmp-nvim-lsp' }, -- nvim-cmp source for LSP
             { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
             { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },         -- nvim-cmp source for nvim lua
             { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },

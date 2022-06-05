@@ -146,7 +146,7 @@ return function()
     -- },
     sources = cmp.config.sources({
       { name = 'cmp_tabnine', priority = 9, max_item_count = 3 },
-      { name = 'nvim_lsp' },
+      { name = 'nvim_lsp', priority = 8, },
       { name = 'luasnip' },
       { name = 'path' },
       -- { name = 'buffer', priority = 7, keyword_length = 5      },

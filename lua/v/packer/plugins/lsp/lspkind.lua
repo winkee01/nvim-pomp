@@ -1,7 +1,5 @@
 local lspkind = require('lspkind')
 
-
-
 lspkind.init({
     -- default: true
     -- with_text = true,
