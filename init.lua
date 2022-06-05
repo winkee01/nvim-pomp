@@ -32,13 +32,5 @@ end
 R('v.globals')
 R('v.styles')
 R('v.settings')
--- R('v.highlights')
--- R('v.statusline')
--- R('v.plugins')
 R('v.packer')
 R('v.mappings')
-
--- require('v.globals')
--- require('v.styles')
--- require('v.settings')
--- require('v.packer')

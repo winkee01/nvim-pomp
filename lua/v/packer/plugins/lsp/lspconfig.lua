@@ -51,19 +51,19 @@ end
 -- because lsp_installer has defined that.
 v.lsp.servers = {
   -- efm = require('v.plugins-config.lsp.servers.efm'),
-  sumneko_lua = require(v.plugins_config_path_root .. '.lsp.servers.sumneko_lua'),  -- lua
-  tsserver = require(v.plugins_config_path_root .. '.lsp.servers.tsserver'),        -- javascript
-  cssls = require(v.plugins_config_path_root .. '.lsp.servers.cssls'),              -- css
-  html = require(v.plugins_config_path_root .. '.lsp.servers.html'),                -- html
-  emmet_ls = require(v.plugins_config_path_root .. '.lsp.servers.emmetls'),         -- emmet
-  pyright = require(v.plugins_config_path_root .. '.lsp.servers.pyright'),          -- python
-  gopls = require(v.plugins_config_path_root .. '.lsp.servers.gopls'),              -- go
+  sumneko_lua = require(v.plugins_config_path_root .. '.lsp.servers.sumneko_lua'), -- lua
+  tsserver = require(v.plugins_config_path_root .. '.lsp.servers.tsserver'), -- javascript
+  cssls = require(v.plugins_config_path_root .. '.lsp.servers.cssls'), -- css
+  html = require(v.plugins_config_path_root .. '.lsp.servers.html'), -- html
+  emmet_ls = require(v.plugins_config_path_root .. '.lsp.servers.emmetls'), -- emmet
+  pyright = require(v.plugins_config_path_root .. '.lsp.servers.pyright'), -- python
+  gopls = require(v.plugins_config_path_root .. '.lsp.servers.gopls'), -- go
   -- gopls = false,  -- use go.nvim
-  clangd = require(v.plugins_config_path_root .. '.lsp.servers.clangd'),            -- c,cpp
-  rust_analyzer = require(v.plugins_config_path_root .. '.lsp.servers.rust_analyzer'),  -- rust
-  jsonls = require(v.plugins_config_path_root .. '.lsp.servers.jsonls'),            -- json
-  texlab = require(v.plugins_config_path_root .. '.lsp.servers.texlab'),            -- latex
-  ltex = require(v.plugins_config_path_root .. '.lsp.servers.ltex'),                -- latex
+  clangd = require(v.plugins_config_path_root .. '.lsp.servers.clangd'), -- c,cpp
+  rust_analyzer = require(v.plugins_config_path_root .. '.lsp.servers.rust_analyzer'), -- rust
+  jsonls = require(v.plugins_config_path_root .. '.lsp.servers.jsonls'), -- json
+  texlab = require(v.plugins_config_path_root .. '.lsp.servers.texlab'), -- latex
+  ltex = require(v.plugins_config_path_root .. '.lsp.servers.ltex'), -- latex
   yamlls = require(v.plugins_config_path_root .. '.lsp.servers.yamlls'),
   bashls = require(v.plugins_config_path_root .. '.lsp.servers.bashls'),
   dockerls = require(v.plugins_config_path_root .. '.lsp.servers.dockerls'),
@@ -83,7 +83,7 @@ v.lsp.servers = {
 function v.lsp.get_server_config(conf)
   local conf_type = type(conf)
   local config = conf_type == 'table' and conf or conf_type == 'function' and conf() or {}
-  
+
   config.on_attach = config.on_attach or v.lsp.on_attach
   config.capabilities = config.capabilities or v.lsp.capabilities
   return config
@@ -101,10 +101,10 @@ return function()
   if vim.v.vim_did_enter == 1 then
     return
   end
+
   for name, config in pairs(v.lsp.servers) do
     if config then
       require('lspconfig')[name].setup(v.lsp.get_server_config(config))
     end
   end
 end
-

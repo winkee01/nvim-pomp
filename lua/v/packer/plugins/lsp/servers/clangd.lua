@@ -8,9 +8,9 @@ local opts = {
   },
   -- on_attach = function(client, bufnr)
   --   -- disable doc formatting, leave it to a specialized plugin
-  --   client.resolved_capabilities.document_formatting = false
-  --   client.resolved_capabilities.document_range_formatting = false
-  --   -- client.resolved_capabilities.offsetEncoding = { "utf-16" }
+  --   client.server_capabilities.document_formatting = false
+  --   client.server_capabilities.document_range_formatting = false
+  --   -- client.server_capabilities.offsetEncoding = { "utf-16" }
 
   --   -- auto format, can leave to null-ls to do the job
   --   -- vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')

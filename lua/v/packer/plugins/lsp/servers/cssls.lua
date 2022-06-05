@@ -1,8 +1,8 @@
 -- Install: npm i -g vscode-langservers-extracted
 
 --Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local opts = {
   capabilities = capabilities,
@@ -22,8 +22,8 @@ local opts = {
   },
   -- on_attach = function(client, bufnr)
   --   -- disable formatting, leave it to specialized formatting plugin
-  --   client.resolved_capabilities.document_formatting = false
-  --   client.resolved_capabilities.document_range_formatting = false
+  --   client.server_capabilities.document_formatting = false
+  --   client.server_capabilities.document_range_formatting = false
   --   local function buf_set_keymap(...)
   --     vim.api.nvim_buf_set_keymap(bufnr, ...)
   --   end

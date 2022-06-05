@@ -72,8 +72,8 @@ local opts = {
   },
   -- on_attach = function(client, bufnr)
   --   -- disable doc formatting, leave it to a specialized plugin
-  --   client.resolved_capabilities.document_formatting = false
-  --   client.resolved_capabilities.document_range_formatting = false
+  --   client.server_capabilities.document_formatting = false
+  --   client.server_capabilities.document_range_formatting = false
 
   --   local function buf_set_keymap(...)
   --     vim.api.nvim_buf_set_keymap(bufnr, ...)
