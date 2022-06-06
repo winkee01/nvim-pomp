@@ -1,5 +1,5 @@
 -- Language enhancement
-local conf = v.conf_mod('lang')
+local conf = v.conf_mod('language')
 
 local M = {
     {
@@ -43,6 +43,7 @@ local M = {
     -- lua, JSON, ...
     { 'folke/lua-dev.nvim', requires = 'nvim-lua/plenary.nvim' }, -- see v/plugins-config/lsp/servers/sumneko_lua.lua
     { 'b0o/schemastore.nvim' }, -- JSON
+    -- { 'bfredl/nvim-luadev' }
 
     -- web development
     {'vuki656/package-info.nvim', requires = 'MunifTanjim/nui.nvim'}, -- display npm package info
@@ -63,14 +64,25 @@ local M = {
     },
     { 'norcalli/nvim-colorizer.lua' },
 
-    -- go
-    -- { 'ray-x/go.nvim', ft = 'go', config = conf('go') },
+    -- golang
+    -- { 
+    --     'ray-x/go.nvim', 
+    --     -- require = 'hrsh7th/nvim-cmp',
+    --     -- after = 'nvim-lspconfig',
+    --     ft = 'go', 
+    --     config = conf('go')
+    -- },
+
     -- rust
     { "simrat39/rust-tools.nvim" },
 
     -- python
     { 'Vimjas/vim-python-pep8-indent', ft = { 'python' } }, -- indent follows the PEP8 style
     { 'jeetsukumaran/vim-pythonsense', ft = { 'python' } }, -- python text object
+    -- {
+    --     'GCBallesteros/jupytext.vim',
+    --     config = function() conf('jupytext') end
+    -- }
 
     { 'lervag/vimtex', ft = { 'tex', 'plaintex' } }, -- LaTeX
     { 'editorconfig/editorconfig-vim' }, -- .editorconfig files
@@ -109,6 +121,13 @@ local M = {
         run = 'cd app && npm install',
     },
     { 'dkarter/bullets.vim', ft = 'markdown' }, -- markdown lists
+    {
+        'dhruvasagar/vim-table-mode',
+        ft = {'markdown'},
+        -- NOTE: Setup to run before
+        -- setup = conf('vim-table-mode'),
+        config = conf('vim-table-mode')
+    },
 
     { 'mboughaba/i3config.vim', ft = 'i3config' }, -- i3wm cofig file
     
@@ -218,7 +237,32 @@ local M = {
         config = function()
             require('neogen').setup({ snippet_engine = 'luasnip' })
         end,
+    },
+
+    -- { 'JuliaEditorSupport/julia-vim'}
+
+    {
+        'chrisbra/csv.vim',
+        ft = {'csv'}
     }
+
+    -- Org mode
+    -- {
+    --   'vhyrro/neorg',
+    --   requires = { 'vhyrro/neorg-telescope', 'max397574/neorg-kanban' },
+    --   config = conf('neorg'),
+    -- },
+    -- {
+    --   'nvim-orgmode/orgmode', 
+    --   config = function()
+    --     require('orgmode').setup{}
+    --   end
+    -- }
+    -- {
+    --   'lukas-reineke/headlines.nvim', -- add background for markdown, vimwiki, or orgmode files
+    --   setup = conf('headlines').setup,
+    --   config = conf('headlines').config,
+    -- },
 }
 
 return M

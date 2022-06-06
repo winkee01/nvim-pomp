@@ -165,7 +165,23 @@ local M = {
         require('v.utils.highlights').set_hi_plugin('copilot', { CopilotSuggestion = { link = 'Comment' } })
       end,
     },
-
+    {
+        "zbirenbaum/copilot.lua",
+        event = {"VimEnter"},
+        config = function()
+            vim.defer_fn(function()
+                require("copilot").setup()
+            end, 100)
+        end,
+    },
+    {
+        "zbirenbaum/copilot-cmp", -- should be used with copilot.lua
+        after = { "copilot.lua", "nvim-cmp" },
+    },
+    { 
+        'vappolinario/cmp-clippy', -- nvim-cmp source implementation of VSCode Clippy extension
+    },
+    
     -- pretty list for lsp
     {
         'folke/trouble.nvim',
@@ -195,13 +211,6 @@ local M = {
         })
       end,
     },
-    -- { 
-    --     'ray-x/go.nvim', 
-    --     -- require = 'hrsh7th/nvim-cmp',
-    --     -- after = 'nvim-lspconfig',
-    --     ft = 'go', 
-    --     config = conf('go')
-    -- },
 }
 
 return M

@@ -7,7 +7,7 @@ v.set_keybindings({
     {'n', '<Leader>z', ':wq<CR>'},
     {'n', '<Leader>wQ', ':qa<CR>'},
     {'n', '<Leader>Q', ':qa<CR>'},
-    {'n', '<Leader>b', ':ls<CR>:b<Space>'},
+    -- {'n', '<Leader>b', ':ls<CR>:b<Space>'},
 
     -- ^^^^^^ Change window size: left & right ^^^^^^
     {'n', '<C-Left>', ':vertical resize +2<CR>'},

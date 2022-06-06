@@ -92,31 +92,31 @@ v.style = {
       object = '',
     },
     cmp = {
-      Text = '', --  
-      Method = '', --  
-      Function = '',
-      Constructor = '', -- 
-      Field = '', -- '',
-      Variable = "", -- '',
-      Class = '', -- '', 
-      Interface = '', -- 
-      Module = '',
-      Property = 'ﰠ', -- 
-      Unit = '塞', -- 
-      Value = '',
-      Enum = '', --  
-      Keyword = '', -- '',
-      Snippet = '', -- '', '', , ﬌, 
-      Color = '',
-      File = '',
-      Reference = '', -- '', 
-      Folder = '',
-      EnumMember = '',
-      Constant = '', -- '', 
-      Struct = '', -- 'פּ', 
-      Event = '', -- ⌘
-      Operator = '', -- 
-      TypeParameter = '', -- 
+      Text = '  ', --  
+      Method = '  ', --  
+      Function = '  ',
+      Constructor = '  ', -- 
+      Field = '  ', -- '',
+      Variable = '  ', -- '',
+      Class = '  ', -- '', 
+      Interface = '  ', -- 
+      Module = '  ',
+      Property = ' ﰠ ', -- 
+      Unit = ' 塞 ', -- 
+      Value = '  ',
+      Enum = '  ', --  
+      Keyword = '  ', -- '',
+      Snippet = '  ', -- '', '', , ﬌, 
+      Color = '  ',
+      File = '  ',
+      Reference = '  ', -- '', 
+      Folder = '  ',
+      EnumMember = '  ',
+      Constant = '  ', -- '', 
+      Struct = '  ', -- 'פּ', 
+      Event = '  ', -- ⌘
+      Operator = '  ', -- 
+      TypeParameter = '  ', -- 
       Buffer = ' ﬘ ',
     },
 
@@ -195,7 +195,7 @@ v.style = {
       calculator          = '  ',
       checkSquare         = '  ',
       container           = '  ',
-      cubeTree            = '  ',
+      cubeTree            = '   ',
       curlies             = '  ',
       dictionary          = ' ﬜ ',
       database            = ' ﬘ ',
@@ -312,4 +312,4 @@ v.style.current = {
 -- This will be changed once a theme plugin is loaded, check v/plugins-config/theme.lua
 vim.cmd('colorscheme blue') 
 
-require 'v.highlights'
+-- require 'v.highlights'

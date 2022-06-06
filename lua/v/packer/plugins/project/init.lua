@@ -123,6 +123,10 @@ local M = {
         --     'crispgm/telescope-heading.nvim', -- markdown header picker
         --     after = 'telescope.nvim',
         -- }, 
+        -- { 'nvim-lua/popup.nvim' },
+        -- { 'nvim-lua/plenary.nvim' },
+        -- { 'yamatsum/nvim-nonicons' },
+        -- { 'kyazdani42/nvim-web-devicons' }
       },
       -- config = conf('telescope'),
     },
@@ -163,18 +167,6 @@ local M = {
     },
     { 'tami5/sqlite.lua' }, -- sudo apt install libsqlite3-dev
 
-    -- 8. Org mode
-    -- {
-    --   'vhyrro/neorg',
-    --   requires = { 'vhyrro/neorg-telescope', 'max397574/neorg-kanban' },
-    --   config = conf('neorg'),
-    -- },
-
-    -- {
-    --   'lukas-reineke/headlines.nvim',
-    --   setup = conf('headlines').setup,
-    --   config = conf('headlines').config,
-    -- },
 }
 
 return M

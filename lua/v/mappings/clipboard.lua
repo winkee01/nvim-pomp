@@ -25,4 +25,4 @@ v.set_keybindings({
 
     -- Yank filename to clipboard
     {'n', '<leader>cl', [[:let @+=expand("%:p")<CR>]]},
-}, {noremap = true, silent = false})
+}, {noremap = true, silent = true})

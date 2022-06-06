@@ -71,7 +71,7 @@ local M = {
     },
     {
       'lewis6991/satellite.nvim', -- displays decorated scrollbars.
-      config = v.conf_wrapper('appearance')('satellite')()
+      config = conf('satellite'),
       -- config = function()
       --   require('satellite').setup()
       -- end,

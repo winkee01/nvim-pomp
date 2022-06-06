@@ -74,6 +74,7 @@ v.lsp.servers = {
   -- "sqlls",       -- sql
   -- pylsp = require("v.plugins-config.lsp.servers.pylsp"),          -- python
   -- "jdtls",          -- java
+  grammarly = require(v.plugins_config_path_root .. '.lsp.servers.grammarly'),
 }
 
 ---Logic to (re)start installed language servers for use initialising lsps

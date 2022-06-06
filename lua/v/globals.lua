@@ -302,7 +302,7 @@ function v.set_keybindings(args, common_opts)
   common_opts = common_opts or {noremap = true, silent = true}
   for _, map_table in ipairs(args) do
     local mode, lhs, rhs, opts = unpack(map_table)
-    local options = vim.tbl_extend('force', common_opts or {}, opts or {})
+    local options = vim.tbl_extend('force', common_opts, opts or {noremap = true, silent = true})
     v.map(mode, lhs, rhs, options)
   end
 end

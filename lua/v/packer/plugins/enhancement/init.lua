@@ -244,6 +244,12 @@ local M = {
         -- v.map('n', '<BS>', [[ :call require('fold-cycle').open() ]] )
       end,
     },
+
+    -- {
+    --     'mtth/scratch.vim', -- :Scratch opens a scratch buffer in a new window
+    --     -- setup = conf('scratch'),
+    --     config = conf('scratch'),
+    -- }
 }
 
 return M

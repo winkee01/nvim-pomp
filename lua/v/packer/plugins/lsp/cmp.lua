@@ -146,6 +146,14 @@ return function()
     -- },
     sources = cmp.config.sources({
       { name = 'cmp_tabnine', priority = 9, max_item_count = 3 },
+      { name = 'copilot', priority = 9, max_item_count = 3, group_index = 2},
+      { 
+        name = 'cmp-clippy',
+        option = {
+          model = "EleutherAI/gpt-neo-2.7B", -- check code clippy vscode repo for options
+          key = "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", -- huggingface.co api key
+        }
+      },
       { name = 'nvim_lsp', priority = 8, },
       { name = 'luasnip' },
       { name = 'path' },
@@ -155,14 +163,13 @@ return function()
       -- { name = 'calc', priority = 3                            },
       -- { name = "spell" }
 
-      -- { name = "nvim_lsp" },
       -- { name = "nvim_lsp_signature_help" },
 
       -- { name = "vsnip" },
       -- { name = 'luasnip' },
       -- { name = 'ultisnips' },
       -- { name = 'snippy' },
-
+      -- { name = "dictionary", keyword_length = 2 },
     }, {
       {
         name = 'buffer',

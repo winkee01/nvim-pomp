@@ -36,11 +36,9 @@ local colors = {
 }
 
 -- override default colorscheme
-local colorscheme =  'doom-one'
 
 local M = {}
-
-M.colorscheme = colorscheme
+M.colorscheme = 'doom-one'
 
 --- function to be ran after a colorscheme is applied
 M.post_colorscheme_hook = function()
@@ -62,6 +60,5 @@ M.post_colorscheme_hook = function()
     },
   })
 end
-
 
 return M
