@@ -78,16 +78,17 @@ local function __get_config_setup_str(config_path, plugin_name, is_theme)
         end
     ]]):format(config_path)
 
+    -- If plugin_name is same as what we set as the colorscheme, then call themes.post_colorscheme_hook()
     if is_theme and plugin_name then
         require_str = ([[%s
             local themes = require('%s.themes.themes')
             local colorscheme = themes.colorscheme
-
             if colorscheme == '%s' then
                 vim.api.nvim_command('colorscheme %s')
                 themes.post_colorscheme_hook()
+                require('%s')()
             end
-        ]]):format(require_str, v.plugins_config_path_root, plugin_name, plugin_name)
+        ]]):format(require_str, v.plugins_config_path_root, plugin_name, plugin_name, config_path)
     end
 
     return require_str
