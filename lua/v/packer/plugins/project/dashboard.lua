@@ -33,7 +33,6 @@ vim.g.dashboard_custom_section = {
   -- a = { description = { "  Projects              " }, command = "Telescope projects" }, -- project.nvim
   -- a = { description = { "  Projects              " }, command = "Telescope session-lens search_session" }, -- project.nvim
   b = { description = { "  Recently files        " }, command = "Telescope oldfiles" },
-  c = { description = { "  Edit keybindings      " }, command = "edit ~/.config/nvim/lua/keybindings.lua" },
   d = { description = { "  Edit Projects         " }, command = "edit ~/.local/share/nvim/project_nvim/project_history", },
   e = { description = { "  Edit .bashrc          " }, command = "edit ~/.bashrc" },
   f = { description = { "  Edit init.lua         " }, command = "edit ~/.config/nvim/init.lua" },

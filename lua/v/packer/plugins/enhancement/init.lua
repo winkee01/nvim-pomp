@@ -197,8 +197,13 @@ local M = {
     {
         'AckslD/nvim-neoclip.lua',
         require = { 'nvim-telescope/telescope.nvim' },
+        -- keys = { '<M>' },
         event = { 'CursorMoved', 'InsertEnter' },
         after = 'vim-repeat',
+        config = function()
+            -- require("v.packer.plugins.telescope")
+            require("neoclip").setup({ db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3" })
+        end,
     },
     {
       'kevinhwang91/nvim-hclipboard',

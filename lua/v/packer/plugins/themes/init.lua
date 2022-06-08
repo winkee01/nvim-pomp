@@ -12,6 +12,7 @@ local M = {
     'rebelot/kanagawa.nvim',
     'p00f/alabaster_dark.nvim', -- also https://git.sr.ht/~p00f/alabaster_dark.nvim
     'sainnhe/sonokai', -- high contrast colorscheme
+    'shawncplus/skittles_berry', -- Slightly higher contrast, brighter
 }
 
 return M

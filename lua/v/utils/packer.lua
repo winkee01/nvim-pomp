@@ -231,14 +231,24 @@ function M.setup(packer)
     M.setup_plugins(packer)
 end
 
+function M.recompile()
+    if _G.packer_plugins == nil or _G.packer_plugins["packer.nvim"] == nil then
+        print("recompile packer")
+        vim.cmd([[PackerCompile]])
+        vim.defer_fn(function()
+            print("Packer recompiled, please run `:PackerCompile` and restart nvim")
+        end, 1000)
+        return
+    end
+end
+
 function M.is_plugin_loaded(plugin)
-    local plugin_list = packer_plugins or {}
-    return plugin_list[plugin] and plugin_list[plugin].loaded
+    M.recompile()
+    return packer_plugins[plugin] and packer_plugins[plugin].loaded
 end
 
 function M.is_plugin_installed(plugin)
-    local plugin_list = packer_plugins or {}
-    return plugin_list[plugin]
+    return packer_plugins[plugin]
 end
 
 -- Make sure packer is installed on the current machine and load

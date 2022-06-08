@@ -107,12 +107,12 @@ local M = {
             vim.opt.spelllang:append('programming') 
         end 
     },
-    {
-      'lewis6991/spellsitter.nvim',
-      config = function()
-        require('spellsitter').setup({ enable = true })
-      end,
-    },
+    -- {
+    --   'lewis6991/spellsitter.nvim',
+    --   config = function()
+    --     require('spellsitter').setup({ enable = true })
+    --   end,
+    -- },
     -- markdown previewer in browser
     -- DEPENDENCY: npm
     {

@@ -1,19 +1,56 @@
 return function()
   require('gitsigns').setup({
-    signs = {
-      add = { hl = 'GitSignsAdd', text = '▌' },
-      change = { hl = 'GitSignsChange', text = '▌' },
-      delete = { hl = 'GitSignsDelete', text = '▌' },
-      topdelete = { hl = 'GitSignsDelete', text = '▌' },
-      changedelete = { hl = 'GitSignsChange', text = '▌' },
-    },
-    _threaded_diff = true, -- NOTE: experimental but I'm curious
-    word_diff = false,
+    signcolumn = true,
     numhl = false,
+    linehl = false,
+    word_diff = false,
+
+    signs = {
+      add = {
+            hl = 'GitSignsAdd',
+            text = '+',  -- '▌'
+            numhl = 'GitSignsAddNr',
+            linehl = 'GitSignsAddLn',
+        },
+        change = {
+            hl = 'GitSignsChange',
+            text = '~',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn',
+        },
+        delete = {
+            hl = 'GitSignsDelete',
+            text = '_',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn',
+        },
+        topdelete = {
+            hl = 'GitSignsDelete',
+            text = '‾',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn',
+        },
+        changedelete = {
+            hl = 'GitSignsChange',
+            text = '~',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn',
+        },
+    },
+    -- _threaded_diff = true, -- NOTE: experimental
+    current_line_blame = false,
+    current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 1000,
+    },
+    current_line_blame_formatter_opts = {
+        relative_time = false,
+    },
     preview_config = {
       -- Options passed to nvim_open_win
       border = v.style.current.border,
-      -- border = 'rounded',
+      -- border = 'rounded', -- 'single'
       style = 'minimal',
       relative = 'cursor',
       row = 0,
@@ -86,6 +123,11 @@ return function()
         {'n', '<leader>hs', 'gs.stage_hunk', { desc = 'stage current hunk' }},
         {'n', '<leader>hr', 'gs.reset_hunk', { desc = 'reset current hunk' }},
         {'n', '<leader>hb', gs.toggle_current_line_blame, { desc = 'toggle current line blame' }},
+        -- { 'n', '<leader>hU', gs.reset_buffer_index },
+        -- { 'n', '<leader>hb', gs.toggle_current_line_blame },
+        -- { 'n', ']h', "&diff ? ']h' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true } },
+        -- { 'n', '[h', "&diff ? '[h' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true } },
+        -- { { 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>' },
       }
     end,
   })

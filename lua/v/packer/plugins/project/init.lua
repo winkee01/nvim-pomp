@@ -56,14 +56,21 @@ local M = {
             })
         end,
     },
-    -- {
-    --   'rmagatti/session-lens',   -- work with glepnir/dashboard-nvim
-    --   config = function()
-    --     require('session-lens').setup({
-    --       prompt_title = 'Search Sessions',
-    --     })
-    --   end
-    -- },
+    {
+      'rmagatti/session-lens',   -- work with glepnir/dashboard-nvim
+      cmd = 'SearchSession',
+      after = {'telescope.nvim'},
+      config = function()
+        require"packer".loader("telescope.nvim")
+        require("telescope").load_extension("session-lens")
+        require('session-lens').setup({
+          prompt_title = 'Search Sessions',
+          path_display = {'shorten'},
+          theme_conf = {border = true},
+          previewer = true
+        })
+      end
+    },
 
     -- {
     --     'airblade/vim-rooter', 
@@ -95,9 +102,9 @@ local M = {
     -- 4. Fuzzy
     { 
       'nvim-telescope/telescope.nvim',
-      cmd = 'Telescope',
-      keys = { '<c-p>', '<leader>fo', '<leader>ff', '<leader>fs' },
-      module_pattern = 'telescope.*',
+      -- cmd = 'Telescope',
+      -- keys = { '<c-p>', '<leader>fo', '<leader>ff', '<leader>fs' },
+      -- module_pattern = 'telescope.*',
       requires = {
         {
           'nvim-telescope/telescope-fzf-native.nvim',
@@ -108,9 +115,40 @@ local M = {
           end,
         },
         {
-          'nvim-telescope/telescope-frecency.nvim',
+          'nvim-telescope/telescope-live-grep-raw.nvim',
           after = 'telescope.nvim',
-          requires = 'tami5/sqlite.lua',
+          opt = true
+        },
+        {
+          'nvim-telescope/telescope-frecency.nvim',
+          keys = { "<M>" },
+          after = 'telescope.nvim',
+          requires = {
+            'tami5/sqlite.lua',
+            module = "sqlite", 
+            opt = true
+          },
+          config = function()
+            local telescope = require("telescope")
+            telescope.load_extension("frecency")
+            telescope.setup({
+              extensions = {
+                frecency = {
+                  show_scores = false,
+                  show_unindexed = true,
+                  ignore_patterns = { "*.git/*", "*/tmp/*" },
+                  disable_devicons = false,
+                  workspaces = {
+                    -- ["conf"] = "/home/my_username/.config",
+                    -- ["data"] = "/home/my_username/.local/share",
+                    -- ["project"] = "/home/my_username/projects",
+                    -- ["wiki"] = "/home/my_username/wiki"
+                  },
+                },
+              },
+            })
+            -- v.map("n", "<leader><leader>p", "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
+          end,
         },
         {
           'nvim-telescope/telescope-smart-history.nvim',
@@ -119,16 +157,16 @@ local M = {
             require('telescope').load_extension('smart_history')
           end,
         },
-        -- { 
-        --     'crispgm/telescope-heading.nvim', -- markdown header picker
-        --     after = 'telescope.nvim',
-        -- }, 
+        {
+            'crispgm/telescope-heading.nvim', -- markdown header picker
+            after = 'telescope.nvim',
+        }, 
         -- { 'nvim-lua/popup.nvim' },
         -- { 'nvim-lua/plenary.nvim' },
         -- { 'yamatsum/nvim-nonicons' },
         -- { 'kyazdani42/nvim-web-devicons' }
       },
-      -- config = conf('telescope'),
+      config = conf('telescope'),
     },
 
     -- 5. Quickfix list

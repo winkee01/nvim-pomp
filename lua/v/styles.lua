@@ -168,7 +168,7 @@ v.style = {
       lightbulb = '',
       search = '',
       code = '',
-      telescope = '',
+      telescope = '', -- '   '
       gear = '',
       package = '',
       list = '',
@@ -179,7 +179,7 @@ v.style = {
       bookmark = '',
       pencil = '',
       tools = '',
-      chevron_right = '',
+      chevron_right = '', -- 
       double_chevron_right = '»',
       table = '',
       calendar = '',
@@ -312,4 +312,4 @@ v.style.current = {
 -- This will be changed once a theme plugin is loaded, check v/plugins-config/theme.lua
 vim.cmd('colorscheme blue') 
 
--- require 'v.highlights'
+require 'v.highlights'
