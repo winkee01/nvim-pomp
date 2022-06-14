@@ -161,7 +161,7 @@ return function()
       -- { name = 'nvim_lua', priority = 5                        },
       -- { name = 'path',priority = 4                             },
       -- { name = 'calc', priority = 3                            },
-      -- { name = "spell" }
+      { name = "spell" }
 
       -- { name = "nvim_lsp_signature_help" },
 

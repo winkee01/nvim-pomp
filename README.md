@@ -5,10 +5,12 @@ Also, if you are a newcomer from other editors, you can use this project as a st
 
 **Caution:**
 
-The project is not fully tested, you may find bugs quite possibly, please submit an issue so that I can fix it. 
+The project is not fully tested, you may find bugs quite possibly, please submit an issue so that I can fix it.
 
 Thank you!
 
+#### LICENSE
+MIT
 
 #### Reference
 
@@ -25,3 +27,4 @@ Thank you!
 - https://github.com/rafi/vim-config
 - https://alpha2phi.medium.com/learn-neovim-the-practical-way-8818fcf4830f
 - https://github.com/nanotee/nvim-lua-guide
+
