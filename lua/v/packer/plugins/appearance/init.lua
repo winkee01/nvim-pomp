@@ -59,16 +59,18 @@ local M = {
     },
 
     -- Status Line
-    -- {
-    --     'nvim-lualine/lualine.nvim',
-    --     after = { 'devicons' },
-    --     -- local_path = 'personal',
-    -- },
     {
-      'winkee01/galaxyline.nvim',
-      -- requires = 'SmiteshP/nvim-gps',
-      config = conf('galaxyline'),
+        'nvim-lualine/lualine.nvim',
+        after = { 'devicons' },
+        -- local_path = 'personal',
+        config = conf('lualine'),
     },
+    -- {
+    --   'winkee01/galaxyline.nvim',
+    --   -- requires = 'SmiteshP/nvim-gps',
+    --   config = conf('galaxyline'),
+    --   diable = true,
+    -- },
     {
       'lewis6991/satellite.nvim', -- displays decorated scrollbars.
       config = conf('satellite'),

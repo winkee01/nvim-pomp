@@ -82,7 +82,7 @@ return function()
           ['<C-j>'] = actions.move_selection_next,
           ['<Esc>'] = actions.close,
           ['<C-v>'] = actions.file_vsplit,
-          ['<C-h>'] = actions.file_split,
+          -- ['<C-h>'] = actions.file_split,
           ['<C-s>'] = actions.file_split,
           ['<C-y>'] = actions.toggle_selection,
           ['<C-a>'] = actions.select_all,

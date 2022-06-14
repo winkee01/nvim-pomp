@@ -2,7 +2,7 @@ local conf = v.conf_mod('project')
 
 -- Project & Session management
 local M = {
-    -- ## 1 ## Tree
+    -- ##1## Tree
     {
         'kyazdani42/nvim-tree.lua',
         -- as = 'nvim-tree',
@@ -13,6 +13,7 @@ local M = {
         --   'NvimTreeClose',
         -- },
         -- keys = '<Leader>e',
+        config = conf('tree')
     },
     -- ranger file explorer
     {
@@ -22,22 +23,23 @@ local M = {
         keys = '<Leader>r',
     },
 
-    -- 1. Dashboard
+    -- ##2## Dashboard
     {
       'glepnir/dashboard-nvim',
+      config = conf('dashboard')
     },
 
     -- {
     --     'goolord/alpha-nvim', -- a Navigation page like dashboard-nvim
     --     requires = { 'kyazdani42/nvim-web-devicons' },
-    -- }
+    -- },
 
     -- {
     --     'ahmedkhalf/project.nvim',
     --     config = [[ require('plugin-basic/project') ]],
-    -- )
+    -- },
 
-    -- 2. Session
+    -- ##3## Session
     {
         'rmagatti/auto-session',
         event = 'VimLeavePre',
@@ -78,7 +80,7 @@ local M = {
     --       vim.g.rooter_patterns = NvimMax.plugins.rooter.patterns
     --       -- vim.g.rooter_change_directory_for_non_project_files = ''
     --     end
-    -- }
+    -- },
     {
       'notjedi/nvim-rooter.lua',
       config = function()
@@ -90,7 +92,7 @@ local M = {
       end
     },
 
-    -- 3. Buffer
+    -- ##4## Buffer
     {
       'akinsho/bufferline.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -99,7 +101,7 @@ local M = {
     },
     { 'kazhala/close-buffers.nvim' },
 
-    -- 4. Fuzzy
+    -- ##5## Fuzzy
     { 
       'nvim-telescope/telescope.nvim',
       -- cmd = 'Telescope',
@@ -169,7 +171,7 @@ local M = {
       config = conf('telescope'),
     },
 
-    -- 5. Quickfix list
+    -- ##6## Quickfix list
     {
       'https://gitlab.com/yorickpeterse/nvim-pqf',
       event = 'BufReadPre',
@@ -187,14 +189,14 @@ local M = {
       end,
     },
 
-    -- 6. Terminal
+    -- ##7## Terminal
     {
       'akinsho/toggleterm.nvim',
       -- local_path = 'personal',
       config = conf('toggleterm'),
     },
 
-    -- 7. Plugin developement & Config reloading
+    -- ##8## Plugin developement & Config reloading
     {
       'klen/nvim-config-local',
       config = function()

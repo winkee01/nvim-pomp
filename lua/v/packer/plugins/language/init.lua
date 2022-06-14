@@ -244,7 +244,7 @@ local M = {
     {
         'chrisbra/csv.vim',
         ft = {'csv'}
-    }
+    },
 
     -- Org mode
     -- {
